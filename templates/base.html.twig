@@ -13,7 +13,16 @@
     </head>
     <body>
         {% include "static/navbar.html.twig" %}
+    
+        <main>
+          {% block body %}
+            {% include "static/index.html.twig" %}
+          {% endblock %}
+        </main>
+    
+        {% include "static/footer2.html.twig" %}
+      </body>
+   
 
-        {% block body %}{% endblock %}
-    </body>
+
 </html>

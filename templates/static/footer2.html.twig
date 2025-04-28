@@ -1,0 +1,224 @@
+<footer>
+  <style>
+    footer {
+      background-color: #ede6e5;
+      padding: 40px 20px;
+      text-align: center;
+      font-family: 'Amatic SC', cursive;
+      color: #333;
+      position: relative;
+    }
+
+    footer h2 {
+      font-size: 3vh;
+      margin-bottom: 20px;
+      animation: pulse 2.5s linear infinite;
+    }
+
+    #cooking {
+      position: relative;
+      margin: 0 auto;
+      width: 300px;
+      height: 300px;
+    }
+
+    .bubble {
+      width: 20px;
+      height: 20px;
+      background-color: #fff;
+      border-radius: 50%;
+      position: absolute;
+      bottom: 60px;
+      opacity: 0.6;
+      animation: bubble 6s infinite ease-in-out;
+    }
+
+    .bubble:nth-child(1) {
+      left: 20%;
+      animation-delay: 0s;
+    }
+    .bubble:nth-child(2) {
+      left: 40%;
+      animation-delay: 1.5s;
+    }
+    .bubble:nth-child(3) {
+      left: 60%;
+      animation-delay: 3s;
+    }
+    .bubble:nth-child(4) {
+      left: 30%;
+      animation-delay: 4.5s;
+    }
+    .bubble:nth-child(5) {
+      left: 50%;
+      animation-delay: 6s;
+    }
+
+    #area {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    #sides {
+      width: 150px;
+      height: 20px;
+      background-color: #555;
+      margin: 0 auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    #pan {
+      width: 100px;
+      height: 10px;
+      background-color: #444;
+      position: absolute;
+      top: 5px;
+      left: 25px;
+      border-radius: 5px;
+    }
+
+    #handle {
+      width: 80px;
+      height: 5px;
+      background-color: #666;
+      position: absolute;
+      top: 7px;
+      right: -80px;
+      border-radius: 2px;
+    }
+
+    #pancake {
+      width: 70px;
+      height: 70px;
+      background-color: #cd8e22;
+      border-radius: 50%;
+      position: absolute;
+      top: -35px;
+      left: calc(50% - 35px);
+      animation: jump 2s infinite ease-in-out;
+    }
+
+    #pastry {
+      width: 60px;
+      height: 60px;
+      background-color: #e9b96e;
+      border-radius: 50%;
+      margin: 5px;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    @keyframes bubble {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.6;
+      }
+      50% {
+        transform: translateY(-100px) scale(1.2);
+        opacity: 0.3;
+      }
+      100% {
+        transform: translateY(-200px) scale(0.8);
+        opacity: 0;
+      }
+    }
+
+    @keyframes jump {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      30% {
+        transform: translateY(-50px) rotate(20deg);
+      }
+      50% {
+        transform: translateY(-70px) rotate(0deg);
+      }
+      70% {
+        transform: translateY(-50px) rotate(-20deg);
+      }
+    }
+
+    .footer-content {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .socials a {
+      font-size: 30px;
+      color: rgb(193, 44, 44);
+      margin: 0 15px;
+    }
+
+    .socials a:hover {
+      color: #7c2222;
+    }
+
+    .links a {
+      margin: 0 15px;
+      color: rgb(95, 23, 23);
+      text-decoration: none;
+      font-size: 18px;
+    }
+
+    .links a:hover {
+      color: #ddd;
+    }
+
+    .logo {
+      width: 130px;
+      height: auto;
+      margin-top: 20px;
+    }
+  </style>
+
+  <h2>Cooking in progress</h2>
+
+  <div id="cooking">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+
+    <div id="area">
+      <div id="sides">
+        <div id="pan"></div>
+        <div id="handle"></div>
+      </div>
+      <div id="pancake">
+        <div id="pastry"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-content">
+    <!-- Social Media Icons -->
+    <div class="socials">
+      <a href="https://www.facebook.com" class="fa-brands fa-facebook"></a>
+      <a href="https://www.twitter.com" class="fa-brands fa-twitter"></a>
+      <a href="https://www.linkedin.com" class="fa-brands fa-linkedin"></a>
+      <a href="https://www.instagram.com" class="fa-brands fa-instagram"></a>
+    </div>
+
+    <div class="links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#team">Team</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <img src="logo.png" alt="Logo" class="logo">
+
+    <p class="legal">© 2025 All rights reserved</p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</body>
+</html>
