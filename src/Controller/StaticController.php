@@ -4,15 +4,25 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
-final class StaticController extends AbstractController
+class StaticController extends AbstractController
 {
-    #[Route('/static', name: 'app_static')]
+    #[Route('/', name: 'app_index')]
     public function index(): Response
     {
-        return $this->render('static/index.html.twig', [
-            'controller_name' => 'StaticController',
-        ]);
+        return $this->render('static/index.html.twig');
+    }
+
+    #[Route('/home', name: 'app_home')]
+    public function home(): Response
+    {
+        return $this->render('static/home.html.twig');
+    }
+
+    #[Route('/about', name: 'app_about')]
+    public function about(): Response
+    {
+        return $this->render('static/about.html.twig');
     }
 }

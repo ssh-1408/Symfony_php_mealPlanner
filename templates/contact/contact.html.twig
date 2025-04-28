@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+
+<div class="container text-center text-white mt-5 mb-5 mb-md-0">
+    <h1 class="display-4 fw-bold">Get In Touch</h1>
+    <p class="lead">We would love to hear from you!</p>
+</div>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row g-5">
+            <!-- Left Side: Contact Info -->
+            <div class="contact-info">
+                <h3 id="contact-details-title" class="mb-4">Contact Details</h3>
+
+                <p>
+                    <i class="fas fa-map-marker-alt text-danger me-2"></i> 
+                    <span class="text-white">Operngasse 1, 1010 Vienna, Austria</span>
+                </p>
+
+                <p>
+                    <i class="fas fa-phone text-danger me-2"></i>
+                    <span class="text-white">+43 1 234 5678</span>
+                </p>
+
+                <p>
+                    <i class="fas fa-envelope text-danger me-2"></i>
+                    <a href="mailto:contact@mealitup.com" class="text-white text-decoration-underline">contact@mealitup.com</a>
+                </p>
+
+                <div class="mt-4 mb-4">
+                    <a href="https://facebook.com" target="_blank" class="text-dark me-3">
+                        <i class="fab fa-facebook fa-2x"></i>
+                    </a>
+                    <a href="https://instagram.com" target="_blank" class="text-dark me-3">
+                        <i class="fab fa-instagram fa-2x"></i>
+                    </a>
+                    <a href="https://reddit.com" target="_blank" class="text-dark me-3">
+                        <i class="fab fa-reddit fa-2x"></i>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" class="text-dark me-3">
+                        <i class="fab fa-linkedin fa-2x"></i>
+                    </a>
+                </div>
+
+                <div class="mt-4">
+                    <iframe
+                        src="https://www.google.com/maps?q=Operngasse+1,+1010+Wien,+Austria&output=embed"
+                        width="100%"
+                        height="250"
+                        style="border-radius: 10px; border: 0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                    ></iframe>
+                </div>
+            </div>
+
+           
+            <div class="col-lg-7 ps-lg-5">
+                <div class="card shadow-sm border-0 p-4">
+                    <h3 class="mb-4" style="color: #0d2c57;">Send a Message</h3>
+
+                    <form action="{{ path('app_contact') }}" method="post">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Your Email</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Your Message</label>
+                            <textarea id="message" name="message" rows="5" class="form-control" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn text-white px-4" style="background-color: #cc0000;">Send</button>
+                        {% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
+
+{% for message in app.flashes('danger') %}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+{% endfor %}
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}
+
