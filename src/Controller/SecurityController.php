@@ -10,26 +10,20 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
     #[Route('/login', name: 'app_login')]
-public function login(AuthenticationUtils $authenticationUtils): Response
-{
-    $error = $authenticationUtils->getLastAuthenticationError();
-    $lastUsername = $authenticationUtils->getLastUsername();
+    public function login(AuthenticationUtils $authenticationUtils): Response
+    {
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
 
-    if (!$error && $lastUsername) {
-        $this->addFlash('success', 'You are logged in successfully!');
+        return $this->render('security/login.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error,
+        ]);
     }
-
-    return $this->render('security/login.html.twig', [
-        'last_username' => $lastUsername,
-        'error' => $error,
-    ]);
-}
-
 
     #[Route('/logout', name: 'app_logout')]
     public function logout(): void
     {
-      
-        throw new \Exception('Logout route should never be reached!');
+        throw new \Exception('Logout is handled by Symfony.');
     }
 }
