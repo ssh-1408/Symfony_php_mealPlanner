@@ -21,7 +21,7 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Encode the plain password
+          
             $user->setPassword(
                 $passwordHasher->hashPassword(
                     $user,
@@ -32,7 +32,7 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // Optional: Flash message for success
+           
             $this->addFlash('success', 'Account created successfully! You can now login.');
 
             return $this->redirectToRoute('app_login');
