@@ -13,6 +13,14 @@
         {% endblock %}
     </head>
     <body>
+    <a href="{{ path('app_logout') }}" class="btn btn-danger">Logout</a>
+    {% for message in app.flashes('success') %}
+    <div class="alert alert-success text-center">
+        {{ message }}
+    </div>
+{% endfor %}
+
+
         {% include "static/navbar.html.twig" %}
     
         <main>
