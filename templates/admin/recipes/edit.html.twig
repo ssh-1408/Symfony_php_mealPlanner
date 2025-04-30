@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Recipe{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <h2 class="text-center text-danger mb-4">Edit Recipe</h2>
+
+    {{ form_start(form) }}
+        <div class="card p-4">
+            {{ form_row(form.title) }}
+            {{ form_row(form.description) }}
+            {{ form_row(form.ingredients) }}
+            {{ form_row(form.preparationTime) }}
+            {{ form_row(form.calories) }}
+            {{ form_row(form.isVegetarian) }}
+            {{ form_row(form.isVegan) }}
+            {{ form_row(form.allergens) }}
+            {{ form_row(form.nutrients) }}
+            {{ form_row(form.externalLink) }}
+            {{ form_row(form.approvedByAdmin) }}
+        </div>
+
+        <button class="btn btn-success mt-3 w-100">Update Recipe</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('admin_recipes_index') }}" class="btn btn-secondary mt-3">Cancel</a>
+</div>
+{% endblock %}

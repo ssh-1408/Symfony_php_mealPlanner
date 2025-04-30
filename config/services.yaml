@@ -5,7 +5,10 @@ services:
         autowire: true
         autoconfigure: true
 
- 
+    App\Security\LoginSuccessHandler:
+        arguments:
+            $router: '@router'
+
     App\:
         resource: '../src/'
         exclude:

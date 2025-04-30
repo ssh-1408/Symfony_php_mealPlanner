@@ -3,9 +3,6 @@
 {% block title %}Login{% endblock %}
 
 {% block body %}
-
-
-<!-- Main Login Section -->
 <section class="py-5">
     <div class="container">
         <div class="row justify-content-center">
@@ -13,16 +10,22 @@
                 <div class="card shadow-sm border-0 p-4">
                     <h3 class="mb-4" style="color: #0d2c57;">Login to your Account</h3>
 
-                    {% if error %}
-                        <div class="alert alert-danger">
-                            {{ error.messageKey|trans(error.messageData, 'security') }}
-                        </div>
-                    {% endif %}
+                    {% for message in app.flashes('success') %}
+                        <div class="alert alert-success text-center">{{ message }}</div>
+                    {% endfor %}
+
+                    {% for message in app.flashes('error') %}
+                        <div class="alert alert-danger text-center">{{ message }}</div>
+                    {% endfor %}
 
                     <form method="post" action="{{ path('app_login') }}">
+                        <input type="hidden" name="_csrf_token"
+                               value="{{ csrf_token('authenticate') }}">
+
                         <div class="mb-3">
                             <label for="username" class="form-label">Email Address</label>
-                            <input type="text" id="username" name="_username" required autofocus class="form-control">
+                            <input type="text" id="username" name="_username"
+                                   value="{{ last_username ?? '' }}" required autofocus class="form-control">
                         </div>
 
                         <div class="mb-3">
@@ -33,11 +36,11 @@
                         <button type="submit" class="btn text-white w-100" style="background-color: #cc0000;">Login</button>
                     </form>
 
-                    <!-- Register Link -->
                     <div class="text-center mt-4">
-                        <p>Not registered yet? <a href="{{ path('app_register') }}" class="text-decoration-underline">Register now</a></p>
+                        <p>Not registered yet? 
+                            <a href="{{ path('app_register') }}" class="text-decoration-underline">Register now</a>
+                        </p>
                     </div>
-                   
 
                 </div>
             </div>
