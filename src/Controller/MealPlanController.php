@@ -19,43 +19,34 @@ final class MealPlanController extends AbstractController
     public function index(Request $request, MealPlanRepository $mealPlanRepository): Response
     {
         date_default_timezone_set('Europe/Vienna');
-
-        $offset = (int) $request->query->get('week', 0); // 0 = current week, -1 = last, +1 = next
         $now = new \DateTimeImmutable();
+
+        $offset = (int) $request->query->get('week', 0);
         $startOfWeek = $now->modify('monday this week')->modify("+$offset week");
 
-        $currentDay = $now->format('l'); // "Monday", "Tuesday", etc.
+        $currentDateParam = $request->query->get('day');
+        $currentDate = $currentDateParam
+            ? new \DateTimeImmutable($currentDateParam)
+            : $now;
+
         $weekDays = [];
         for ($i = 0; $i < 7; $i++) {
-            $day = $startOfWeek->add(new \DateInterval("P{$i}D")); // FIXED here
+            $day = $startOfWeek->add(new \DateInterval("P{$i}D"));
             $weekDays[] = [
-                'label' => $day->format('l'),     // e.g. "Monday"
-                'date' => $day->format('Y-m-d'),  // e.g. "2025-04-28"
-                'display' => $day->format('D – j M'), // "Mon – 28 Apr"
+                'label' => $day->format('l'),        // "Monday"
+                'date' => $day->format('Y-m-d'),     // "2025-05-01"
+                'display' => $day->format('j F'),    // "1 May"
             ];
         }
-        $mealPlans = $mealPlanRepository->findAll();
 
-        $plansByDayAndMeal = [];
-        foreach ($mealPlans as $plan) {
-            $day = $plan->getMealDate()->format('l');         // e.g., Monday
-            $meal = $plan->getMealtime()->value;              // e.g., lunch
-
-            $plansByDayAndMeal[$day][$meal] = [
-                'id' => $plan->getId(),
-                'recipe' => [
-                    'title' => $plan->getRecipe()->getTitle()
-                ]
-            ];
-        }
+        $mealPlansForDay = $mealPlanRepository->findByDate($currentDate);
 
         return $this->render('meal_plan/index.html.twig', [
             'weekDays' => $weekDays,
-            'currentDay' => $currentDay,
+            'currentDate' => $currentDate->format('Y-m-d'),
             'now' => $now,
             'offset' => $offset,
-            'meal_plans' => $mealPlans,
-            'plans' => $plansByDayAndMeal,
+            'meal_plans' => $mealPlansForDay,
         ]);
     }
 
@@ -64,11 +55,11 @@ final class MealPlanController extends AbstractController
     {
         $mealPlan = new MealPlan();
         // Get date and mealtime from query
-        $mealDate = $request->query->get('date');
+        $date = $request->query->get('date');
         $mealtime = $request->query->get('mealtime');
 
-        if ($mealDate) {
-            $mealPlan->setMealDate(new \DateTimeImmutable($mealDate));
+        if ($date) {
+            $mealPlan->setMealDate(new \DateTimeImmutable($date));
         }
         if ($mealtime) {
             $mealPlan->setMealtime(Mealtime::from(strtolower($mealtime))); // assuming you use PHP enum

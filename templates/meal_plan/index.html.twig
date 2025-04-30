@@ -4,110 +4,71 @@
 
 {% block body %}
 <div class="container bg-white p-4 rounded shadow mt-5">
-    <h1 class="mb-2">My Meal Plans</h1>
-    <p class="text-muted">Today is {{ now|date('l, j F Y – H:i') }}</p>
+    <h1 class="mb-3">My Meal Plans</h1>
+    <p class="mb-3 text-muted">Today is {{ now|date('l, j F Y – H:i') }}</p>
+    <a href="{{ path('app_meal_plan_index') }}" class="btn btn-sm btn-mealplan mb-3">
+    🗓️ See Current Week</a>
 
     <!-- Centered Day Buttons with Dates -->
     <div class="d-flex justify-content-center align-items-center mb-4 gap-3">
+        
         <!-- Previous Week -->
-        <a href="{{ path('app_meal_plan_index', {'week': offset - 1}) }}" class="btn btn-outline-secondary">&laquo;</a>
+        <a href="{{ path('app_meal_plan_index', {'week': offset - 1,'day': currentDate}) }}" class="btn btn-mealplan-calender">&laquo;</a>
 
         <!-- Day Buttons -->
         <div class="btn-group" role="group">
             {% for day in weekDays %}
-                <button type="button"
-                    class="btn btn-outline-primary {% if day.label == currentDay %}active{% endif %}"
-                    data-day="{{ day.label }}">
+                <a href="{{ path('app_meal_plan_index', {'week': offset}) }}"
+                    class="btn btn-mealplan-calender-outline {% if day.date == currentDate %}active{% endif %}">
                     {{ day.label }}<br>
                     <small class="text-muted">{{ day.display }}</small>
-                </button>
+                </a>
             {% endfor %}
         </div>
+        
         <!-- Next Week -->
-        <a href="{{ path('app_meal_plan_index', {'week': offset + 1}) }}" class="btn btn-outline-secondary">&raquo;</a>
-
+        <a href="{{ path('app_meal_plan_index', {'week': offset + 1}) }}" class="btn btn-mealplan-calender">&raquo;</a>
     </div>
 
-    <!-- Meals shown below (as before) -->
+
+{% set currentDayData = weekDays|filter(d => d.date == currentDate)|first %}
+
+<!-- Cards with meals -->
     <div class="row" id="meal-cards">
-        {% for meal in ['Breakfast', 'Lunch', 'Dinner', 'Supper'] %}
-            <div class="col-md-3 mb-4">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">{{ meal }}</h5>
-                            {% set plan = plans[currentDay][meal|lower] ?? null %}
-                            {% if plan %}
-                                <p class="card-text"><strong>{{ plan.recipe.title }}</strong></p>
-                                <a href="{{ path('app_meal_plan_edit', {'id': plan.id}) }}" class="btn btn-sm my-2 w-100 mealplan-btn-edit">Edit</a>
-                                <a href="{{ path('app_meal_plan_show', {'id': plan.id}) }}" class="btn btn-sm my-2 w-100 mealplan-btn-edit">Show Meal Plan</a>
-                            {% else %}
-                                <p class="card-text text-muted">No meal assigned</p>
-                                <a href="{{ path('app_meal_plan_new') }}" class="btn btn-sm btn-outline-secondary">Assign Recipe</a>
-                            {% endif %}     
-                    </div>
-                </div>
-            </div>
+    {% set meals = ['Breakfast', 'Lunch', 'Dinner', 'Supper'] %}
+
+    {% for meal in meals %}
+        {% set plan = null %}
+        {% for mp in meal_plans %}
+            {% if plan is null and mp.mealtime.value|lower == meal|lower %}
+            {% set plan = mp %}
+            {% endif %}
         {% endfor %}
-    </div>
-</div>
 
-
-<div class="my-4 text-center">
-    <a href="{{ path('app_meal_plan_new') }}" class="btn btn-sm my-2 mealplan-btn-edit">Create New Meal Plan</a>
-</div>
-    
-
-<script>
-    const plans = {{ plans|json_encode|raw }};
-    const mealCards = document.getElementById('meal-cards');
-    const meals = ['breakfast', 'lunch', 'dinner', 'supper'];
-
-    function renderMeals(day) {
-    mealCards.innerHTML = '';
-
-    const weekDays = {{ weekDays|json_encode|raw }};
-    const selectedDate = weekDays.find(d => d.label === day)?.date || '';
-
-    meals.forEach(meal => {
-        const plan = (plans[day] && plans[day][meal]) || null;
-        const recipeTitle = plan?.recipe?.title || null;
-        const recipeId = plan?.id || null;
-
-        const card = document.createElement('div');
-        card.className = 'col-md-3 mb-4';
-
-        const mealCapital = meal.charAt(0).toUpperCase() + meal.slice(1);
-        const assignUrl = `/meal/plan/new?date=${selectedDate}&mealtime=${meal}`;
-
-        card.innerHTML = `
+        <div class="col-md-3 mb-4">
             <div class="card h-100">
                 <div class="card-body text-center">
-                    <h5 class="card-title">${mealCapital}</h5>
-                    ${recipeTitle
-                        ? `<p class="card-text"><strong>${recipeTitle}</strong></p>
-                           <a href="/meal/plan/${recipeId}/edit" class="btn btn-sm my-2 w-100 mealplan-btn-edit">Edit</a> <br>
-                           <a href="/meal/plan/${recipeId}" class="btn btn-sm my-2 w-100 mealplan-btn-edit">Show Meal Plan</a>`
-                        : `<p class="card-text text-muted">No meal assigned</p>
-                           <a href="${assignUrl}" class="btn btn-sm btn-outline-secondary">Assign Recipe</a>`
-                    }
+                    <h5 class="card-title">{{ meal }}</h5>
+                    {% if plan %}
+                        <p class="card-text"><strong>{{ plan.recipe.title }}</strong></p>
+                        <a href="{{ path('app_meal_plan_edit', {'id': plan.id}) }}" class="btn btn-sm my-2 w-100 btn-mealplan">✎ Edit</a>
+                        <a href="{{ path('app_meal_plan_show', {'id': plan.id}) }}" class="btn btn-sm my-2 w-100 btn-mealplan">Show Meal Plan</a>
+                    {% else %}
+                        <p class="card-text text-muted">No meal assigned</p>
+
+                        <a href="{{ path('app_meal_plan_new', {
+                            date: currentDayData.date|default(currentDate),
+                            day: currentDayData.label|default(''),
+                            mealtime: meal|lower}) }}" 
+                            class="btn btn-sm btn-outline-secondary">Assign Recipe
+                        </a>
+                    {% endif %}
                 </div>
             </div>
-        `;
-        mealCards.appendChild(card);
-    });
-}
+        </div>
+    {% endfor %}
+    </div>
 
-    // Initial load
-    renderMeals('{{ currentDay }}');
-
-    // Button click handler
-    document.querySelectorAll('[data-day]').forEach(button => {
-        button.addEventListener('click', function () {
-            document.querySelectorAll('[data-day]').forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-            renderMeals(this.getAttribute('data-day'));
-        });
-    });
-</script>
+</div>
 
 {% endblock %}

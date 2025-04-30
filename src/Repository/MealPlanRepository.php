@@ -12,4 +12,17 @@ class MealPlanRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, MealPlan::class);
     }
+
+    public function findByDate(\DateTimeImmutable $date): array
+    {
+        $start = $date->setTime(0, 0, 0);
+        $end = $date->setTime(23, 59, 59);
+
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.mealDate BETWEEN :start AND :end')
+            ->setParameter('start', $start)
+            ->setParameter('end', $end)
+            ->getQuery()
+            ->getResult();
+    }
 }
