@@ -18,7 +18,7 @@
         <!-- Day Buttons -->
         <div class="btn-group" role="group">
             {% for day in weekDays %}
-                <a href="{{ path('app_meal_plan_index', {'week': offset}) }}"
+                <a href="{{ path('app_meal_plan_index', {'week': offset, 'day': day.date}) }}"
                     class="btn btn-mealplan-calender-outline {% if day.date == currentDate %}active{% endif %}">
                     {{ day.label }}<br>
                     <small class="text-muted">{{ day.display }}</small>
@@ -27,7 +27,7 @@
         </div>
         
         <!-- Next Week -->
-        <a href="{{ path('app_meal_plan_index', {'week': offset + 1}) }}" class="btn btn-mealplan-calender">&raquo;</a>
+        <a href="{{ path('app_meal_plan_index', {'week': offset + 1,'day': currentDate}) }}" class="btn btn-mealplan-calender">&raquo;</a>
     </div>
 
 
