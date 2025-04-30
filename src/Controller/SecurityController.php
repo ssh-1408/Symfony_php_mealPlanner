@@ -18,12 +18,16 @@ class SecurityController extends AbstractController
         return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
+
         ]);
     }
 
     #[Route('/logout', name: 'app_logout')]
     public function logout(): void
     {
+        $this->addFlash('success', 'Du wurdest erfolgreich ausgeloggt.');
+
+
         throw new \Exception('Logout is handled by Symfony.');
     }
 }

@@ -1,3 +1,7 @@
 body {
     background-color: rgb(150, 64, 41);
 }
+
+.navbar-text-large .navbar-nav .nav-link {
+    font-size: 1.2rem; /* Beispiel: Erhöht die Schriftgröße auf 1.2rem */
+}
