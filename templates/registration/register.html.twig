@@ -6,7 +6,6 @@
 <section class="py-5 text-white text-center">
     <div class="container">
         <h1 class="display-4 fw-bold">Create your account</h1>
-       
     </div>
 </section>
 
@@ -16,6 +15,12 @@
             <h3 class="mb-4" style="color: #0d2c57;">Sign Up</h3>
 
             {{ form_start(registrationForm) }}
+
+                <div class="mb-3">
+                    {{ form_label(registrationForm.username) }}
+                    {{ form_widget(registrationForm.username, {'attr': {'class': 'form-control'}}) }}
+                </div>
+
                 <div class="mb-3">
                     {{ form_label(registrationForm.email) }}
                     {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
@@ -37,12 +42,14 @@
                 </div>
 
                 <button type="submit" class="btn text-white w-100" style="background-color: #cc0000;">Register</button>
+
             {{ form_end(registrationForm) }}
-             <div class="text-center mt-3">
-                      <p>Already registered? 
-                           <a href="{{ path('app_login') }}" class="text-decoration-underline">Login here</a>.
-                     </p>
-                    </div>
+
+            <div class="text-center mt-3">
+                <p>Already registered? 
+                    <a href="{{ path('app_login') }}" class="text-decoration-underline">Login here</a>.
+                </p>
+            </div>
 
         </div>
     </div>
