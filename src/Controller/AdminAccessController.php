@@ -16,12 +16,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminAccessController extends AbstractController
 {
-
+    // --- USER SECTION ---
 
     #[Route('/admin/users', name: 'admin_users_index')]
     public function indexUsers(UserRepository $userRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         return $this->render('admin/users/index.html.twig', [
             'users' => $userRepository->findAll(),
         ]);
@@ -58,7 +59,7 @@ class AdminAccessController extends AbstractController
         return $this->redirectToRoute('admin_users_index');
     }
 
- 
+    // --- RECIPE SECTION ---
 
     #[Route('/admin/recipes', name: 'admin_recipes_index')]
     public function indexRecipes(RecipeRepository $recipeRepository): Response

@@ -55,20 +55,6 @@ class Recipe
     #[ORM\Column(type: 'float')]
     private float $averageRating = 0;
 
-    #[ORM\Column(type: 'boolean')]
-    private bool $isApproved = false;
-
-    public function isApproved(): bool
-    {
-        return $this->isApproved;
-    }
-
-    public function setIsApproved(bool $isApproved): self
-    {
-        $this->isApproved = $isApproved;
-        return $this;
-    }
-
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: RecipeRating::class, orphanRemoval: true)]
     private Collection $recipeRatings;
 
@@ -81,10 +67,12 @@ class Recipe
     {
         return $this->id;
     }
+
     public function getTitle(): ?string
     {
         return $this->title;
     }
+
     public function setTitle(string $title): self
     {
         $this->title = $title;
@@ -95,6 +83,7 @@ class Recipe
     {
         return $this->description;
     }
+
     public function setDescription(string $description): self
     {
         $this->description = $description;
@@ -105,6 +94,7 @@ class Recipe
     {
         return $this->ingredients;
     }
+
     public function setIngredients(string $ingredients): self
     {
         $this->ingredients = $ingredients;
@@ -115,6 +105,7 @@ class Recipe
     {
         return $this->preparationTime;
     }
+
     public function setPreparationTime(int $preparationTime): self
     {
         $this->preparationTime = $preparationTime;
@@ -125,6 +116,7 @@ class Recipe
     {
         return $this->calories;
     }
+
     public function setCalories(int $calories): self
     {
         $this->calories = $calories;
@@ -135,6 +127,7 @@ class Recipe
     {
         return $this->isVegetarian;
     }
+
     public function setIsVegetarian(bool $isVegetarian): self
     {
         $this->isVegetarian = $isVegetarian;
@@ -145,6 +138,7 @@ class Recipe
     {
         return $this->isVegan;
     }
+
     public function setIsVegan(bool $isVegan): self
     {
         $this->isVegan = $isVegan;
@@ -155,6 +149,7 @@ class Recipe
     {
         return $this->allergens;
     }
+
     public function setAllergens(string $allergens): self
     {
         $this->allergens = $allergens;
@@ -165,6 +160,7 @@ class Recipe
     {
         return $this->nutrients;
     }
+
     public function setNutrients(string $nutrients): self
     {
         $this->nutrients = $nutrients;
@@ -175,6 +171,7 @@ class Recipe
     {
         return $this->externalLink;
     }
+
     public function setExternalLink(?string $externalLink): self
     {
         $this->externalLink = $externalLink;
@@ -185,6 +182,7 @@ class Recipe
     {
         return $this->createdBy;
     }
+
     public function setCreatedBy(?User $createdBy): self
     {
         $this->createdBy = $createdBy;
@@ -195,6 +193,7 @@ class Recipe
     {
         return $this->approvedByAdmin;
     }
+
     public function setApprovedByAdmin(bool $approvedByAdmin): self
     {
         $this->approvedByAdmin = $approvedByAdmin;
@@ -205,6 +204,7 @@ class Recipe
     {
         return $this->averageRating;
     }
+
     public function setAverageRating(float $averageRating): self
     {
         $this->averageRating = $averageRating;
@@ -215,6 +215,7 @@ class Recipe
     {
         return $this->recipeRatings;
     }
+
     public function addRecipeRating(RecipeRating $recipeRating): self
     {
         if (!$this->recipeRatings->contains($recipeRating)) {
@@ -223,6 +224,7 @@ class Recipe
         }
         return $this;
     }
+
     public function removeRecipeRating(RecipeRating $recipeRating): self
     {
         if ($this->recipeRatings->removeElement($recipeRating)) {
