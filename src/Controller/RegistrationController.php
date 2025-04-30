@@ -21,7 +21,7 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-          
+
             $user->setPassword(
                 $passwordHasher->hashPassword(
                     $user,
@@ -32,7 +32,7 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-           
+
             $this->addFlash('success', 'Account created successfully! You can now login.');
 
             return $this->redirectToRoute('app_login');
@@ -43,4 +43,3 @@ class RegistrationController extends AbstractController
         ]);
     }
 }
-
