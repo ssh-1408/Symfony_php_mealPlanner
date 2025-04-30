@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\Mealtime;
 use App\Repository\MealPlanRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -21,17 +22,56 @@ class MealPlan
     #[ORM\JoinColumn(nullable: false)]
     private ?Recipe $recipe = null;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'date')]
     private ?\DateTimeInterface $mealDate = null;
 
-    public function getId(): ?int { return $this->id; }
+    #[ORM\Column(enumType: Mealtime::class)]
+    private ?Mealtime $mealtime = null;
 
-    public function getUser(): ?User { return $this->user; }
-    public function setUser(?User $user): self { $this->user = $user; return $this; }
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
-    public function getRecipe(): ?Recipe { return $this->recipe; }
-    public function setRecipe(?Recipe $recipe): self { $this->recipe = $recipe; return $this; }
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+        return $this;
+    }
 
-    public function getMealDate(): ?\DateTimeInterface { return $this->mealDate; }
-    public function setMealDate(\DateTimeInterface $mealDate): self { $this->mealDate = $mealDate; return $this; }
+    public function getRecipe(): ?Recipe
+    {
+        return $this->recipe;
+    }
+    public function setRecipe(?Recipe $recipe): self
+    {
+        $this->recipe = $recipe;
+        return $this;
+    }
+
+    public function getMealDate(): ?\DateTimeInterface
+    {
+        return $this->mealDate;
+    }
+    public function setMealDate(\DateTimeInterface $mealDate): self
+    {
+        $this->mealDate = $mealDate;
+        return $this;
+    }
+
+    public function getMealtime(): ?Mealtime
+    {
+        return $this->mealtime;
+    }
+
+    public function setMealtime(Mealtime $mealtime): static
+    {
+        $this->mealtime = $mealtime;
+
+        return $this;
+    }
 }
