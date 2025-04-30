@@ -74,4 +74,12 @@ class RecipeRateController extends AbstractController
 
         return $this->json(null, Response::HTTP_NO_CONTENT);
     }
+
+    #[Route('/{id}/ratings', name: 'get_recipe_ratings', methods: ['GET'])]
+    public function getRecipeRatings(Recipe $recipe, RecipeRatingRepository $repo): Response
+    {
+        $ratings = $repo->findBy(['fkRecipe' => $recipe]);
+
+        return $this->json($ratings);
+    }
 }
