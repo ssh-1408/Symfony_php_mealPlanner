@@ -1,34 +1,61 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm fixed-top">
     <div class="container-fluid">
-        <img src="/logo.png" alt="MealitUP Logo" width="170" height="140" class="d-inline-block align-text-top me-2">
-        <a class="navbar-brand" href="#">MealitUP</a>
+        <img src="/logo.png" alt="MealitUP Logo" width="120" height="100" class="me-2 rounded">
+        <a class="navbar-brand fw-bold fs-4" href="#">MealitUP</a>
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse navbar-text-large" id="navbarNav" >
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item"><a class="nav-link" href="{{ path('app_about') }}">How it works</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Browse Recipe</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ path('app_home') }}">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Shopping List</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ path('app_meal_plan_index') }}">Meal Planner</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ path('app_contact') }}">Contact</a></li>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                {% set currentRoute = app.request.attributes.get('_route') %}
 
                 <li class="nav-item">
-                    <a href="{{ path('app_register') }}" class="btn btn-secondary ms-2">Register</a>  <!-- Hellgrauer Button -->
+                    <a class="nav-link {% if currentRoute == 'app_about' %}active fw-bold text-primary{% endif %}" href="{{ path('app_about') }}">How it works</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ path('app_login') }}" class="btn btn-success ms-2">Log in</a>  <!-- Grüner Button -->
+                    <a class="nav-link" href="#">Browse Recipe</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if currentRoute == 'app_home' %}active fw-bold text-primary{% endif %}" href="{{ path('app_home') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Shopping List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if currentRoute == 'app_meal_plan_index' %}active fw-bold text-primary{% endif %}" href="{{ path('app_meal_plan_index') }}">Meal Planner</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_contact') }}">Contact</a>
+                </li>
+
+                {% if app.user and is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item">
+                        <a class="nav-link text-warning fw-bold" href="{{ path('admin_dashboard') }}">🛠 Admin Dashboard</a>
+                    </li>
+                {% endif %}
             </ul>
-            <a href="{{ path('app_logout') }}" class="btn btn-danger ms-2">Log out</a>  <!-- Roter Button -->
+
+            <ul class="navbar-nav flex-column flex-lg-row align-items-start align-items-lg-center">
+                {% if app.user %}
+                    <li class="nav-item mb-2 mb-lg-0">
+                        <span class="navbar-text">
+                            👋 Welcome, <strong>{{ app.user.username }}</strong>
+                        </span>
+                    </li>
+                    <li class="nav-item mb-2 mb-lg-0">
+                        <a href="{{ path('app_logout') }}" class="btn btn-danger">Log out</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item mb-2 mb-lg-0">
+                        <a href="{{ path('app_register') }}" class="btn btn-outline-secondary">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('app_login') }}" class="btn btn-outline-success">Log in</a>
+                    </li>
+                {% endif %}
+            </ul>
         </div>
-        
     </div>
 </nav>
-
-
-
-
-
