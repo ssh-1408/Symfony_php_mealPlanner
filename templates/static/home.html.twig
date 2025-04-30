@@ -1,10 +1,234 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}How it Works - Meal Planner{% endblock %}
+{% block title %}Index - Homapge{% endblock %}
 
 {% block body %}
-<div class="container text-center mt-5">
-    <h1>How It Works</h1>
-    <p>Browse recipes, create your meal plans, and manage your shopping lists with ease!</p>
+  <style>
+    /*---------------------------------------------------
+    LESS Elements 0.9
+  ---------------------------------------------------
+    A set of useful LESS mixins
+    More info at: http://lesselements.com
+  ---------------------------------------------------*/
+@charset "UTF-8";
+html,
+body {
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 1.25em;
+  color: #333;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  
+}
+#animation {
+  padding-top: 20px;
+  width: 205px;
+  height: 303px;
+  position: relative;
+}
+#animation img {
+  position: absolute;
+  top: 20px;
+  left: 0;
+}
+#animation #head {
+  left: 15px;
+}
+#animation #bob {
+  top: 92px;
+}
+#animation #arm {
+  top: 122px;
+  left: 63px;
+  -webkit-transform-origin: 0 41px;
+  transform-origin: 0 41px;
+}
+#animation #cooker {
+  top: 146px;
+  left: 112px;
+}
+#animation #pancake {
+  top: 152px;
+  left: 135px;
+  image-rendering: pixelated;
+}
+#pancake {
+  border-radius: 0 !important;
+  background-color: transparent !important;
+  width: 17px !important;
+  height: 9px !important;
+}
+
+#animation #fire {
+  top: 167px;
+  left: 136px;
+}
+#animation:hover #arm {
+  -webkit-animation: flick 1s infinite;
+  animation: flick 1s infinite;
+}
+#animation:hover #pancake {
+  -webkit-animation: spin 3s infinite;
+  animation: spin 3s infinite;
+}
+#animation:hover #head {
+  -webkit-animation: headBob 0.3s infinite;
+  animation: headBob 0.3s infinite;
+}
+/* The animation for the arm */
+@-webkit-keyframes flick {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  10% {
+    -webkit-transform: rotate(-15deg);
+    transform: rotate(-15deg);
+  }
+  20%,
+  100% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+}
+@keyframes flick {
+  0% {
+    transform: rotate(0);
+  }
+  10% {
+    transform: rotate(-15deg);
+  }
+  20%,
+  100% {
+    transform: rotate(0);
+  }
+}
+/* The animation for the pancake */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: translate(0, 0) rotate(0);
+    transform: translate(0, 0) rotate(0);
+  }
+  10% {
+    -webkit-transform: translate(0, -25px) rotate(0);
+    transform: translate(0, -25px) rotate(0);
+  }
+  20% {
+    -webkit-transform: translate(0, -65px) rotate(-360deg);
+    transform: translate(0, -65px) rotate(-360deg);
+  }
+  50%,
+  100% {
+    -webkit-transform: translate(0, 0) rotate(-720deg);
+    transform: translate(0, 0) rotate(-720deg);
+  }
+}
+@keyframes spin {
+  0% {
+    transform: translate(0, 0) rotate(0);
+  }
+  10% {
+    transform: translate(0, -25px) rotate(0);
+  }
+  20% {
+    transform: translate(0, -65px) rotate(-360deg);
+  }
+  50%,
+  100% {
+    transform: translate(0, 0) rotate(-720deg);
+  }
+}
+/* The animation for the head bob */
+@-webkit-keyframes headBob {
+  0%,
+  50%,
+  100% {
+    -webkit-transform: translate(0, 0) rotate(0);
+    transform: translate(0, 0) rotate(0);
+  }
+  25% {
+    -webkit-transform: translate(-5px, -5px) rotate(-10deg);
+    transform: translate(-5px, -5px) rotate(-10deg);
+  }
+  75% {
+    -webkit-transform: translate(5px, -5px) rotate(10deg);
+    transform: translate(5px, -5px) rotate(10deg);
+  }
+}
+@keyframes headBob {
+  0%,
+  50%,
+  100% {
+    transform: translate(0, 0) rotate(0);
+  }
+  25% {
+    transform: translate(-5px, -5px) rotate(-10deg);
+  }
+  75% {
+    transform: translate(5px, -5px) rotate(10deg);
+  }
+}
+
+
+  </style>
+</head>
+<body>
+  <br>
+  <br><br>
+  <br><br><br><br><br>
+  <br><br><br>
+ 
+  <h1 style="color: white; letter-spacing: 2px;">Don't burn yourself while cooking, start now with MealitUp</h1>
+  <br><br><br>
+  <br><br><br>
+  <br><br><br>
+
+<p style="font-style: italic; color: #f8f5f5; text-align: center; letter-spacing: 6px; font-size: 20px">
+    “MealitUp – Plan smart. Cook smart. Live smart.”
+</p>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+
+  <div id="animation">
+    <img id="pancake" alt="Pancake" src="images/pancake.gif" width="17" height="9" />
+    <img id="arm" alt="Bobs Arm" src="images/arm.gif" width="105" height="45" />
+    <img id="cooker" alt="Herd" src="images/cooker.gif" width="93" height="177" />
+    <img id="fire" alt="Feuer" src="images/fire.gif" width="21" height="21" />
+    <img id="bob" alt="Bob" src="images/bob.gif" width="78" height="231" />
+    <img id="head" alt="Bobs Kopf" src="images/head.gif" width="48" height="75" />
+  </div>
+  <div style="text-align: center; margin-top: 40px;">
+    <p style="font-size: 1.4rem; font-weight: bold;">Scan the QR code to download the MealItUp app</p>
+    
+    <img src="qrcode.png" alt="QR Code" style="width: 300px; margin: 20px auto; border: 1px solid #ccc; padding: 10px; border-radius: 8px; background-color: white;">
+    
+    <p style="margin-top: 20px;">Available on:</p>
+    
+    <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+        <a href="https://play.google.com/store" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" 
+                 alt="Get it on Google Play" 
+                 style="height: 50px;">
+        </a>
+        <a href="https://www.apple.com/app-store/" target="_blank">
+            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" 
+                 alt="Download on the App Store" 
+                 style="height: 50px;">
+        </a>
+    </div>
 </div>
+
+  
+</div>
+<br><br><br><br>
+
+ 
+
+</body>
+
+
+
 {% endblock %}

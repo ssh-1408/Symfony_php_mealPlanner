@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create New Meal Plan{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Create New Meal Plan</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    {{ include('meal_plan/_form.html.twig') }}
+                </div>
+            </div>
+
+            <div class="text-center mt-3">
+                <a href="{{ path('app_meal_plan_index') }}" class="btn btn-outline-secondary">← Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit MealPlan{% endblock %}
+
+{% block body %}
+<div class="container bg-white p-4 rounded shadow mt-5">
+    <h1 class="mb-4 text-center">Edit Meal Plan</h1>
+
+    {{ include('meal_plan/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <div class="d-flex justify-content-between mt-4">
+        <a href="{{ path('app_meal_plan_index') }}" class="btn btn-sm my-2 mealplan-btn-edit">← Back to List</a>
+        {{ include('meal_plan/_delete_form.html.twig') }}
+    </div>
+</div>
+{% endblock %}
