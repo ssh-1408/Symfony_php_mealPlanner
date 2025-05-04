@@ -11,12 +11,12 @@
         </div>
         <div class="mb-4 text-center">
             <div class="btn-group" role="group">
-                <a href="{{ path('app_recipe_index') }}" class="btn btn-outline-secondary">All</a>
-                <a href="{{ path('app_recipe_index', {'filter': 'vegan'}) }}" class="btn btn-outline-success">Vegan</a>
-                <a href="{{ path('app_recipe_index', {'filter': 'vegetarian'}) }}" class="btn btn-outline-success">Vegetarian</a>
-                <a href="{{ path('app_recipe_index', {'filter': 'low_calories'}) }}" class="btn btn-outline-secondary">Under 200 Calories</a>
-                <a href="{{ path('app_recipe_index', {'filter': 'quick'}) }}" class="btn btn-outline-secondary">Quick Recipes</a>
-            </div>
+                <a href="{{ path('app_recipe_index') }}" class="btn btn-outline-dark">📋 All</a>
+                <a href="{{ path('app_recipe_index', {'filter': 'vegan'}) }}" class="btn btn-outline-dark">🌱 Vegan</a>
+                <a href="{{ path('app_recipe_index', {'filter': 'vegetarian'}) }}" class="btn btn-outline-dark">🥦 Vegetarian</a>
+                <a href="{{ path('app_recipe_index', {'filter': 'low_calories'}) }}" class="btn btn-outline-dark">🔥 Under 200 Calories</a>
+                <a href="{{ path('app_recipe_index', {'filter': 'quick'}) }}" class="btn btn-outline-dark">⏱️ Quick Recipes</a>
+        </div>
         </div>
 
         {% if recipes is not empty %}
