@@ -33,7 +33,7 @@
                                 <p class="card-text text-muted">{{ recipe.description }}</p>
                                 
                                 <div class="text-center">
-                                    <a href="{{ path('app_recipe_show', {id: recipe.id}) }}" class="btn btn-sm custom-button w-50 mb-3">View his Recipe</a>
+                                    <a href="{{ path('app_recipe_show', {id: recipe.id}) }}" class="btn btn-sm custom-button w-50 mb-3">View This Recipe</a>
                                     <br>
                                     {% if app.user %}
                                         <a href="{{ path('app_recipe_rate', {id: recipe.id}) }}" class="btn btn-sm btn-warning w-50 mb-3">Rate This Recipe</a>
