@@ -39,7 +39,8 @@ final class MealPlanController extends AbstractController
             ];
         }
 
-        $mealPlansForDay = $mealPlanRepository->findByDate($currentDate);
+        $user = $this->getUser();
+        $mealPlansForDay = $mealPlanRepository->findByDateAndUser($currentDate, $user);
 
         return $this->render('meal_plan/index.html.twig', [
             'weekDays' => $weekDays,
@@ -89,14 +90,21 @@ final class MealPlanController extends AbstractController
     #[Route('/{id}', name: 'app_meal_plan_show', methods: ['GET'])]
     public function show(MealPlan $mealPlan): Response
     {
+        $recipe = $mealPlan->getRecipe();
+
         return $this->render('meal_plan/show.html.twig', [
-            'meal_plan' => $mealPlan,
+            'mealPlan' => $mealPlan,
+            'recipe' => $recipe,
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_meal_plan_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, MealPlan $mealPlan, EntityManagerInterface $entityManager): Response
     {
+        if ($mealPlan->getUser() !== $this->getUser()) {
+            throw $this->createAccessDeniedException('Access denied.');
+        }
+
         $form = $this->createForm(MealPlanForm::class, $mealPlan);
         $form->handleRequest($request);
 
@@ -115,6 +123,10 @@ final class MealPlanController extends AbstractController
     #[Route('/{id}', name: 'app_meal_plan_delete', methods: ['POST'])]
     public function delete(Request $request, MealPlan $mealPlan, EntityManagerInterface $entityManager): Response
     {
+        if ($mealPlan->getUser() !== $this->getUser()) {
+            throw $this->createAccessDeniedException('Access denied.');
+        }
+
         if ($this->isCsrfTokenValid('delete' . $mealPlan->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($mealPlan);
             $entityManager->flush();

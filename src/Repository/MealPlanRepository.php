@@ -13,15 +13,13 @@ class MealPlanRepository extends ServiceEntityRepository
         parent::__construct($registry, MealPlan::class);
     }
 
-    public function findByDate(\DateTimeImmutable $date): array
+    public function findByDateAndUser(\DateTimeInterface $date, $user): array
     {
-        $start = $date->setTime(0, 0, 0);
-        $end = $date->setTime(23, 59, 59);
-
         return $this->createQueryBuilder('m')
-            ->andWhere('m.mealDate BETWEEN :start AND :end')
-            ->setParameter('start', $start)
-            ->setParameter('end', $end)
+            ->andWhere('m.mealDate = :date')
+            ->andWhere('m.user = :user')
+            ->setParameter('date', $date->format('Y-m-d'))
+            ->setParameter('user', $user)
             ->getQuery()
             ->getResult();
     }
