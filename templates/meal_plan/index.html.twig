@@ -30,6 +30,21 @@
         <a href="{{ path('app_meal_plan_index', {'week': offset + 1,'day': currentDate}) }}" class="btn custom-button">&raquo;</a>
     </div>
 
+<!-- Calories estimation section -->
+<div class="text-center my-4">
+    {% set totalCalories = 0 %}
+    {% for mp in meal_plans %}
+        {% if mp.mealDate|date('Y-m-d') == currentDate and mp.recipe %}
+            {% set totalCalories = totalCalories + mp.recipe.calories %}
+        {% endif %}
+    {% endfor %}
+
+    <div class="alert alert-info d-inline-block px-4 py-3 shadow-sm rounded">
+        <h5 class="mb-0">Estimated Daily Calories: <strong>{{ totalCalories }}</strong> kcal</h5>
+    </div>
+</div>
+
+
 
 {% set currentDayData = weekDays|filter(d => d.date == currentDate)|first %}
 
