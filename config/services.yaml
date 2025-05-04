@@ -1,17 +1,22 @@
 parameters:
+  image_directory: "%kernel.project_dir%/public/images/recipeUploads"
 
 services:
-    _defaults:
-        autowire: true
-        autoconfigure: true
+  _defaults:
+    autowire: true
+    autoconfigure: true
 
-    App\Security\LoginSuccessHandler:
-        arguments:
-            $router: '@router'
+  App\Security\LoginSuccessHandler:
+    arguments:
+      $router: "@router"
 
-    App\:
-        resource: '../src/'
-        exclude:
-            - '../src/DependencyInjection/'
-            - '../src/Entity/'
-            - '../src/Kernel.php'
+  App\:
+    resource: "../src/"
+    exclude:
+      - "../src/DependencyInjection/"
+      - "../src/Entity/"
+      - "../src/Kernel.php"
+
+  App\Service\FileUploader:
+    arguments:
+      $targetDirectory: "%image_directory%"
