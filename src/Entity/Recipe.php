@@ -58,6 +58,9 @@ class Recipe
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: RecipeRating::class, orphanRemoval: true)]
     private Collection $recipeRatings;
 
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
+
     public function __construct()
     {
         $this->recipeRatings = new ArrayCollection();
@@ -233,5 +236,31 @@ class Recipe
             }
         }
         return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+    public function calculateAverageRating(): float
+    {
+        $ratings = $this->getRecipeRatings();
+        if ($ratings->isEmpty()) {
+            return 0;
+        }
+
+        $sum = 0;
+        foreach ($ratings as $rating) {
+            $sum += $rating->getStars();
+        }
+
+        return round($sum / count($ratings), 1);
     }
 }

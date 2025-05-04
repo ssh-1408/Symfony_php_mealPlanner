@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Recipe;
 use App\Entity\RecipeRating;
+use App\Form\RecipeRateForm;
 use App\Repository\RecipeRatingRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,75 +12,52 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/recipes')]
+
 class RecipeRateController extends AbstractController
 {
-    #[Route('/{id}/ratings', name: 'rate_recipe', methods: ['POST'])]
-    public function rateRecipe(
-        Recipe $recipe,
+
+    #[Route('/recipe/{id}/rate', name: 'app_recipe_rate')]
+    public function rate(
         Request $request,
-        EntityManagerInterface $em
+        Recipe $recipe,
+        EntityManagerInterface $entityManager
     ): Response {
-        $data = json_decode($request->getContent(), true);
-
-        $rating = new RecipeRating();
-        $rating->setStars($data['stars']);
-        $rating->setCreatedAt(new \DateTimeImmutable());
-        $rating->setFkUser($this->getUser());
-        $rating->setFkRecipe($recipe);
-
-        $em->persist($rating);
-        $em->flush();
-
-        return $this->json($rating, Response::HTTP_CREATED);
-    }
-
-    #[Route('/{id}/ratings/average', name: 'average_rating', methods: ['GET'])]
-    public function averageRating(Recipe $recipe, RecipeRatingRepository $repo): Response
-    {
-        $ratings = $repo->findBy(['fkRecipe' => $recipe]);
-        if (count($ratings) === 0) {
-            return $this->json(['average' => null]);
+        $user = $this->getUser();
+        if (!$user) {
+            throw $this->createAccessDeniedException('You must be logged in to rate.');
         }
 
-        $sum = array_reduce($ratings, fn ($acc, $r) => $acc + $r->getStars(), 0);
-        $average = $sum / count($ratings);
+        $existingRating = $entityManager->getRepository(RecipeRating::class)->findOneBy([
+            'user' => $user,
+            'recipe' => $recipe,
+        ]);
 
-        return $this->json(['average' => round($average, 2)]);
-    }
+        $rating = $existingRating ?? new RecipeRating();
+        $rating->setRecipe($recipe);
+        $rating->setUser($user);
+        $rating->setCreatedAt(new \DateTime());
 
-    #[Route('/ratings/{id}', name: 'update_rating', methods: ['PUT'])]
-    public function updateRating(RecipeRating $rating, Request $request, EntityManagerInterface $em): Response
-    {
-        if ($rating->getFkUser() !== $this->getUser()) {
-            throw $this->createAccessDeniedException();
+        $form = $this->createForm(RecipeRateForm::class, $rating);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($rating);
+            $entityManager->flush();
+
+            $recipe = $rating->getRecipe();
+            $average = $recipe->calculateAverageRating();
+            $recipe->setAverageRating($average);
+
+            $entityManager->persist($recipe);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Thanks for rating!');
+            return $this->redirectToRoute('app_recipe_show', ['id' => $recipe->getId()]);
         }
 
-        $data = json_decode($request->getContent(), true);
-        $rating->setStars($data['stars']);
-        $em->flush();
-
-        return $this->json($rating);
-    }
-
-    #[Route('/ratings/{id}', name: 'delete_rating', methods: ['DELETE'])]
-    public function deleteRating(RecipeRating $rating, EntityManagerInterface $em): Response
-    {
-        if ($rating->getFkUser() !== $this->getUser()) {
-            throw $this->createAccessDeniedException();
-        }
-
-        $em->remove($rating);
-        $em->flush();
-
-        return $this->json(null, Response::HTTP_NO_CONTENT);
-    }
-
-    #[Route('/{id}/ratings', name: 'get_recipe_ratings', methods: ['GET'])]
-    public function getRecipeRatings(Recipe $recipe, RecipeRatingRepository $repo): Response
-    {
-        $ratings = $repo->findBy(['fkRecipe' => $recipe]);
-
-        return $this->json($ratings);
+        return $this->render('recipe/rate.html.twig', [
+            'recipe' => $recipe,
+            'form' => $form->createView(),
+        ]);
     }
 }

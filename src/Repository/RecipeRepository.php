@@ -53,5 +53,23 @@ class RecipeRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findByCaloriesLessThan(int $limit): array
+    {
+        return $this->createQueryBuilder('r')
+            ->where('r.calories < :limit')
+            ->setParameter('limit', $limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByPreparationTimeLessThan(int $minutes): array
+    {
+        return $this->createQueryBuilder('r')
+            ->where('r.preparationTime < :minutes')
+            ->setParameter('minutes', $minutes)
+            ->getQuery()
+            ->getResult();
+    }
+
     // Add your own custom methods below if needed
 }

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ recipe.title }} | Recipe Details{% endblock %}
+
+
+{% block body %}
+<section class="py-5">
+    <div class="container" style="max-width: 500px;">
+        <div class="card shadow-sm border-0">
+
+            <img src="{{ asset('images/recipeUploads/' ~ recipe.image) }}" class="card-img-top p-2" alt="{{ recipe.title }}">
+            
+            <div class="card-body">
+                <h2 class="card-title text-custom">{{ recipe.title }}</h2>
+
+                <p class="text-muted">{{ recipe.description }}</p>
+
+                <ul class="list-group list-group-flush mb-3">
+                    <li class="list-group-item"><strong>Ingredients:</strong> {{ recipe.ingredients }}</li>
+                    <li class="list-group-item"><strong>Preparation Time:</strong> {{ recipe.preparationTime }} mins</li>
+                    <li class="list-group-item"><strong>Calories:</strong> {{ recipe.calories }}</li>
+                    <li class="list-group-item"><strong>Nutrients:</strong> {{ recipe.nutrients }}</li>
+                    <li class="list-group-item"><strong>Allergens:</strong> {{ recipe.allergens }}</li>
+                    <li class="list-group-item"><strong>Link:</strong> <a href="{{ recipe.externalLink }}" target="_blank">{{ recipe.externalLink }}</a></li>
+                    <li class="list-group-item">
+                        <span class="badge bg-success">{{ recipe.isVegetarian ? 'Vegetarian' : '' }}</span>
+                        <span class="badge bg-success">{{ recipe.isVegan ? 'Vegan' : '' }}</span>
+                        <span class="badge bg-secondary">{{ recipe.approvedByAdmin ? 'Approved' : 'Not Approved' }}</span>
+                    </li>
+                </ul>
+
+                <div class="mb-3">
+                    <span class="my-3"><strong>⭐ Average Rating:</strong> {{ recipe.averageRating ?? 'N/A' }}</span>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a href="{{ path('app_recipe_index') }}" class="btn custom-button mb-3">← Back to list</a>
+                    {% if app.user and app.user == recipe.createdBy %}
+                        <a href="{{ path('app_recipe_edit', {'id': recipe.id}) }}" class="btn custom-button mb-3">Edit</a>
+                        {{ include('recipe/_delete_form.html.twig') }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
