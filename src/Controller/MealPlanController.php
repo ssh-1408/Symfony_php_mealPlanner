@@ -97,6 +97,7 @@ final class MealPlanController extends AbstractController
         // Get date and mealtime from query
         $date = $request->query->get('date');
         $mealtime = $request->query->get('mealtime');
+        $filter = $request->query->get('filter');
 
         if ($date) {
             $mealPlan->setMealDate(new \DateTimeImmutable($date));
@@ -105,8 +106,9 @@ final class MealPlanController extends AbstractController
             $mealPlan->setMealtime(Mealtime::from(strtolower($mealtime))); // assuming you use PHP enum
         }
 
-
-        $form = $this->createForm(MealPlanForm::class, $mealPlan);
+        $form = $this->createForm(MealPlanForm::class, $mealPlan, [
+            'filter' => $filter,
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -129,6 +131,7 @@ final class MealPlanController extends AbstractController
     #[Route('/{id}', name: 'app_meal_plan_show', methods: ['GET'])]
     public function show(MealPlan $mealPlan): Response
     {
+
         $recipe = $mealPlan->getRecipe();
 
         return $this->render('meal_plan/show.html.twig', [
@@ -140,11 +143,17 @@ final class MealPlanController extends AbstractController
     #[Route('/{id}/edit', name: 'app_meal_plan_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, MealPlan $mealPlan, EntityManagerInterface $entityManager): Response
     {
+
         if ($mealPlan->getUser() !== $this->getUser()) {
             throw $this->createAccessDeniedException('Access denied.');
         }
 
-        $form = $this->createForm(MealPlanForm::class, $mealPlan);
+        $filter = $request->query->get('filter');
+
+        $form = $this->createForm(MealPlanForm::class, $mealPlan, [
+            'filter' => $filter // <- Pass it to the form
+        ]);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

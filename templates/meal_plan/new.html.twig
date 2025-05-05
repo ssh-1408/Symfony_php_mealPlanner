@@ -6,18 +6,25 @@
 <div class="container mt-5">
     <h1 class="mb-4 text-center">Create New Meal Plan</h1>
 
-    <div class="row justify-content-center">
-        <div class="col-md-8">
             <div class="card shadow-sm">
                 <div class="card-body">
+                    
+                    <h5 class="mb-3">Filter Recipes:</h5>
+                    <div class="btn-group mb-4">
+                        <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'filter': 'all'})) }}" class="btn btn-outline-dark">All</a>
+                        <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'filter': 'vegan'})) }}" class="btn btn-outline-dark">Vegan 🌱</a>
+                        <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'filter': 'vegetarian'})) }}" class="btn btn-outline-dark">Vegetarian 🥬</a>
+                        <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'filter': 'low_calories'})) }}" class="btn btn-outline-dark">Under 200 kcal 🔥</a>
+                        <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'filter': 'quick'})) }}" class="btn btn-outline-dark">Quick ⏱️</a>
+                    </div>
+
                     {{ include('meal_plan/_form.html.twig') }}
+
+                    <div class="text-center mt-3">
+                        <a href="{{ path('app_meal_plan_index') }}" class="btn custom-button">← Back to Meal Plan</a>
+                    </div>
+
                 </div>
             </div>
-
-            <div class="text-center mt-3">
-                <a href="{{ path('app_meal_plan_index') }}" class="btn btn-mealplan">← Back to List</a>
-            </div>
-        </div>
-    </div>
 </div>
 {% endblock %}

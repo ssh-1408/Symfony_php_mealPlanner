@@ -6,6 +6,7 @@ use App\Entity\MealPlan;
 use App\Entity\Recipe;
 use App\Entity\User;
 use App\Enum\Mealtime;
+use App\Repository\RecipeRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -17,6 +18,8 @@ class MealPlanForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $filter = $options['filter'];
+
         $builder
             ->add('mealDate', DateType::class, [
                 'widget' => 'single_text',
@@ -35,11 +38,24 @@ class MealPlanForm extends AbstractType
             ])
             ->add('recipe', EntityType::class, [
                 'class' => Recipe::class,
-                'choice_label' => 'title', // Better than 'id' for users
-                'attr' => [
-                    'class' => 'form-select mb-3',
-                ],
+                'choice_label' => 'title',
                 'label' => 'Choose a Recipe',
+                'attr' => ['class' => 'form-select mb-3'],
+                'query_builder' => function (RecipeRepository $repo) use ($filter) {
+                    $qb = $repo->createQueryBuilder('r');
+
+                    if ($filter === 'vegan') {
+                        $qb->where('r.isVegan = true');
+                    } elseif ($filter === 'vegetarian') {
+                        $qb->where('r.isVegetarian = true');
+                    } elseif ($filter === 'low_calories') {
+                        $qb->where('r.calories < 200');
+                    } elseif ($filter === 'quick') {
+                        $qb->where('r.preparationTime < 30');
+                    }
+
+                    return $qb->orderBy('r.title', 'ASC');
+                },
             ]);
     }
 
@@ -47,6 +63,8 @@ class MealPlanForm extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => MealPlan::class,
+            'filter' => null,
+
         ]);
     }
 }
