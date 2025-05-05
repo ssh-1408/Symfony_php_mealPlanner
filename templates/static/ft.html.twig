@@ -1,0 +1,138 @@
+<footer style="
+    background: #1e1e1e;
+    color: #f0f0f0;
+    padding: 3rem 2rem;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+    overflow: hidden;
+    clip-path: polygon(0 0, 100% 5%, 100% 100%, 0% 100%);
+    box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.4);
+    animation: fadeInUp 1.5s ease-out;
+">
+    <style>
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            z-index: 1;
+            position: relative;
+        }
+
+        .footer-content h3 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .footer-content em {
+            font-size: 1.1rem;
+            opacity: 0.85;
+        }
+
+        .footer-nav {
+            margin: 2rem 0 1rem;
+        }
+
+        .footer-nav a {
+            color: #ccc;
+            margin: 0 12px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        .footer-nav a:hover {
+            color: #FFD700;
+            border-bottom: 2px solid #FFD700;
+        }
+
+        .footer-socials {
+            margin-top: 1.5rem;
+            font-size: 1.6rem;
+        }
+
+        .footer-socials a {
+            color: #bbb;
+            margin: 0 10px;
+            transition: transform 0.4s ease, color 0.3s ease;
+        }
+
+        .footer-socials a:hover {
+            color: #FFD700;
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .footer-copy {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .sparkle {
+            position: absolute;
+            background-color: #FFD700;
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: twinkle 4s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.3); opacity: 0.6; }
+        }
+
+        .sparkle1 { width: 8px; height: 8px; top: 10%; left: 10%; animation-delay: 0s; }
+        .sparkle2 { width: 6px; height: 6px; top: 30%; left: 90%; animation-delay: 1s; }
+        .sparkle3 { width: 10px; height: 10px; top: 70%; left: 20%; animation-delay: 2s; }
+        .sparkle4 { width: 7px; height: 7px; top: 50%; left: 80%; animation-delay: 3s; }
+    </style>
+
+    <div class="sparkle sparkle1"></div>
+    <div class="sparkle sparkle2"></div>
+    <div class="sparkle sparkle3"></div>
+    <div class="sparkle sparkle4"></div>
+
+    <!-- Logo hinzufügen -->
+    <img src="{{ asset('images/logo.png')}}" alt="Logo" class="logo" style="max-width: 200px; margin-bottom: 1rem;">
+
+    <div class="footer-content">
+        <p><em>Plan smart. Cook smart. Live smart.</em></p>
+
+        {% set currentRoute = app.request.attributes.get('_route') %}
+        <nav class="footer-nav">
+            <a href="{{ path('app_about') }}"
+               class="{% if currentRoute == 'app_about' %}fw-bold text-warning{% endif %}">How it works</a>
+            <a href="#">Browse Recipe</a>
+            <a href="{{ path('app_home') }}"
+               class="{% if currentRoute == 'app_home' %}fw-bold text-warning{% endif %}">Home</a>
+            <a href="#">Shopping List</a>
+            <a href="{{ path('app_meal_plan_index') }}"
+               class="{% if currentRoute == 'app_meal_plan_index' %}fw-bold text-warning{% endif %}">Meal Planner</a>
+            <a href="{{ path('app_contact') }}">Contact</a>
+            <a href="{{ path('app_team') }}">Team</a>
+        </nav>
+
+        <div class="footer-socials">
+            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+        </div>
+
+        <p class="footer-copy">&copy; {{ "now"|date("Y") }} MealitUp. All rights reserved.</p>
+    </div>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</footer>

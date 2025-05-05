@@ -1,0 +1,28 @@
+
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        .rating-radio-group .form-check {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+{% endblock %}
+
+{% block title %}Rate {{ recipe.title }}{% endblock %}
+
+{% block body %}
+<div class="container bg-white p-4 rounded shadow my-5">
+    <h2>Rate "{{ recipe.title }}"</h2>
+
+    {{ form_start(form) }}
+        <div class="mb-3">
+            {{ form_label(form.stars) }}
+            {{ form_widget(form.stars) }}
+            {{ form_errors(form.stars) }}
+        </div>
+        <button class="btn custom-button my-3">Submit Rating</button>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

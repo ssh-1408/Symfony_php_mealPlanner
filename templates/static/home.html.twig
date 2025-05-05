@@ -14,8 +14,6 @@
 html,
 body {
   text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 12px;
   line-height: 1.25em;
   color: #333;
   text-rendering: optimizeLegibility;
@@ -171,37 +169,74 @@ body {
   }
 }
 
-
-  </style>
+</style>
 </head>
 <body>
-  <br>
-  <br><br>
-  <br><br><br><br><br>
-  <br><br><br>
- 
-  <h1 style="color: white; letter-spacing: 2px;">Don't burn yourself while cooking, start now with MealitUp</h1>
-  <br><br><br>
-  <br><br><br>
-  <br><br><br>
+  
+  <h1 class="m-5 p-5" style="color: white; letter-spacing: 2px;">Don't burn yourself while cooking, start now with MealitUp</h1>
+  <p style="font-style: italic; color: #f8f5f5; text-align: center; letter-spacing: 6px; font-size: 20px">
+    “MealitUp – Plan smart. Cook smart. Live smart.” </p>
 
-<p style="font-style: italic; color: #f8f5f5; text-align: center; letter-spacing: 6px; font-size: 20px">
-    “MealitUp – Plan smart. Cook smart. Live smart.”
-</p>
-<br><br><br>
-<br><br><br>
-<br><br><br>
+  
+  <div class="my-5 d-flex flex-wrap justify-content-center align-items-center gap-4">
 
-  <div id="animation">
-    <img id="pancake" alt="Pancake" src="images/pancake.gif" width="17" height="9" />
-    <img id="arm" alt="Bobs Arm" src="images/arm.gif" width="105" height="45" />
-    <img id="cooker" alt="Herd" src="images/cooker.gif" width="93" height="177" />
-    <img id="fire" alt="Feuer" src="images/fire.gif" width="21" height="21" />
-    <img id="bob" alt="Bob" src="images/bob.gif" width="78" height="231" />
-    <img id="head" alt="Bobs Kopf" src="images/head.gif" width="48" height="75" />
+  <!-- Animation block -->
+  <div class="mx-3" id="animation">
+    <img id="pancake" src="{{ asset('images/homepage/pancake.gif') }}" width="17" height="9" alt="Pancake" />
+    <img id="arm" src="{{ asset('images/homepage/arm.gif') }}" width="105" height="45" alt="Arm" />
+    <img id="cooker" src="{{ asset('images/homepage/cooker.gif') }}" width="93" height="177" alt="Cooker" />
+    <img id="fire" src="{{ asset('images/homepage/fire.gif') }}" width="21" height="21" alt="Fire" />
+    <img id="bob" src="{{ asset('images/homepage/bob.gif') }}" width="78" height="231" alt="Bob" />
+    <img id="head" src="{{ asset('images/homepage/head.gif') }}" width="48" height="75" alt="Head" />
   </div>
+
+  <!-- QR info and store badges -->
+  <div class="pt-4 text-white text-center">
+    <p class="fw-bold">Scan the QR code to download the MealItUp app</p>
+    <p class="fw-bold">Available on:</p>
+    <div class="d-flex justify-content-center align-items-center gap-3">
+      <a href="https://play.google.com/store" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" 
+             alt="Get it on Google Play" 
+             style="height: 50px;">
+      </a>
+      <a href="https://www.apple.com/app-store/" target="_blank">
+        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" 
+             alt="Download on the App Store" 
+             style="height: 50px;">
+      </a>
+    </div>
+  </div>
+
+  <!-- QR code image -->
+  <div class="pt-4 text-center">
+    <img src="{{ asset('images/homepage/qrcode.png') }}" alt="QR Code" 
+         style="width: 250px; border: 1px solid #ccc; padding: 10px; border-radius: 8px; background-color: white;">
+  </div>
+
+</div>
+
+<p class="py-5 text-white text-center fst-italic fs-5" style="letter-spacing: 0.1em;">
+  “With MealitUp, healthy eating meets smart planning — discover, organize, and cook with confidence.”
+</p>
+
+<!-- Videos -->
+<div class="my-5 d-flex flex-wrap justify-content-center align-items-center gap-4">
+
+  <!-- Video 1 -->
+  <video class="rounded shadow" style="max-width: 100%; width: 300px;" controls>
+    <source src="{{ asset('images/homepage/mealit.mp4') }}" type="video/mp4">
+    Dein Browser unterstützt das Video-Tag nicht.
+  </video>
+
+  <!-- Video 2 -->
+  <video class="rounded shadow" style="max-width: 100%; width: 300px;" controls>
+    <source src="{{ asset('images/homepage/mockup.mp4') }}" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+</div>
+
 </body>
-
-
 
 {% endblock %}

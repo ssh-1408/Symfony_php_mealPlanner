@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}About - MealPlanner{% endblock %}
+
+{% block body %}
+<br><br><br>
+
+<div class="container mt-5">
+    <h1 class="mb-4">🌿 About MealPlanner 🌿</h1>
+
+    <p>
+        Planning meals throughout the week can be stressful – especially when life gets busy.
+        <strong>MealPlanner</strong> is here to help you take control of your food routine in a simple and enjoyable way.
+    </p>
+
+    <h2 class="mt-4">✨ What You Can Do</h2>
+    <ul>
+        <li><strong>Create and organize your recipes:</strong> Save your favorite meals with ingredients, preparation steps, calories, and more – all in one place.</li>
+        <li><strong>Plan your meals for the week:</strong> Easily assign meals to specific days and times. See your whole week at a glance and stay organized.</li>
+        <li><strong>Smart recipe search:</strong> Filter recipes by type (e.g. vegetarian, vegan, gluten-free), calories, and preparation time.</li>
+        <li><strong>Generate shopping lists:</strong> Turn your planned meals into a ready-to-use shopping list. Save time at the store and never forget an ingredient again.</li>
+    </ul>
+
+    <h2 class="mt-4">🌱 Made for Every Lifestyle</h2>
+    <ul>
+        <li>Perfect for vegetarians, vegans, and anyone with food intolerances like gluten or lactose</li>
+        <li>Helpful for athletes and fitness-conscious users who want to track calories and meal balance</li>
+        <li>Supports healthy eating habits by making planning simple and consistent</li>
+        <li>Great for families, singles, or anyone who wants to cook more and stress less</li>
+    </ul>
+
+    <p class="mt-4">
+        Whether you're cooking for yourself, your family, or just looking for inspiration, MealPlanner is your personal assistant in the kitchen.
+        Start planning smarter – your week just got easier.
+    </p>
+
+    <br><br><br><br>
+
+
+
+    <video width="740" height="560" controls>
+        <source src="{{ asset('images/meal.mp4')}}" type="video/mp4">
+        Dein Browser unterstützt das Video-Tag nicht.
+      </video>
+
+      <br><br><br><br><br>
+
+      <video width="740" height="560" controls>
+        <source src="{{ asset('images/ym.mp4') }}" type="video/mp4">
+        Dein Browser unterstützt das Video-Tag nicht.
+      </video>
+
+      <br><br><br><br><br>
+
+
+</div>
+{% endblock %}

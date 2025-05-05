@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Manage Users{% endblock %}
+
+{% block body %}
+<div class="container my-5">
+    <h1>All Users</h1>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Blocked</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.roles|join(', ') }}</td>
+                    <td>{{ user.isBlocked ? 'Yes' : 'No' }}</td>
+                    <td>
+                        <a href="{{ path('admin_users_edit', {'id': user.id}) }}" class="btn btn-sm btn-primary">Edit</a>
+                        <a href="{{ path('admin_users_delete', {'id': user.id}) }}" class="btn btn-sm btn-danger ms-1"
+                           onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('admin_dashboard') }}" class="btn btn-secondary mt-3">
+    <i class="fas fa-arrow-left me-1"></i> Back to Dashboard
+</a>
+
+</div>
+{% endblock %}

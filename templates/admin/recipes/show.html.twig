@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recipe Details{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <h2 class="text-center text-danger mb-4">Recipe Details</h2>
+
+    <div class="card p-4">
+        <h4>{{ recipe.title }}</h4>
+        <p><strong>Description:</strong> {{ recipe.description }}</p>
+        <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
+        <p><strong>Preparation Time:</strong> {{ recipe.preparationTime }} minutes</p>
+        <p><strong>Calories:</strong> {{ recipe.calories }}</p>
+        <p><strong>Vegetarian:</strong> {{ recipe.isVegetarian ? 'Yes' : 'No' }}</p>
+        <p><strong>Vegan:</strong> {{ recipe.isVegan ? 'Yes' : 'No' }}</p>
+        <p><strong>Allergens:</strong> {{ recipe.allergens }}</p>
+        <p><strong>Nutrients:</strong> {{ recipe.nutrients }}</p>
+        <p><strong>External Link:</strong> 
+            {% if recipe.externalLink %}
+                <a href="{{ recipe.externalLink }}" target="_blank">{{ recipe.externalLink }}</a>
+            {% else %}
+                N/A
+            {% endif %}
+        </p>
+        <p><strong>Approved:</strong> {{ recipe.approvedByAdmin ? 'Yes' : 'No' }}</p>
+    </div>
+
+    <a href="{{ path('admin_recipes_index') }}" class="btn btn-secondary mt-4">Back to list</a>
+{% endblock %}

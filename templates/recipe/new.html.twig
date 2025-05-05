@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create a New Recipe{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/recipe.css') }}">
+{% endblock %}
+
+{% block body %}
+<section class="py-5">
+    <div class="container" style="max-width: 700px;">
+        <div class="card shadow-sm border-0 p-4">
+            <h2 class="mb-4 text-center text-custom">Create a New Recipe</h2>
+
+            {{ include('recipe/_form.html.twig') }}
+
+            <div class="text-center mt-3">
+                <a href="{{ path('app_recipe_index') }}" class="btn custom-button">
+                    ← Back to Recipe List
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Review Recipes{% endblock %}
+
+{% block body %}
+<div class="container my-5">
+    <h1 class="mb-4">Recipes Pending Approval</h1>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
+    {% if recipes is empty %}
+        <p>No recipes pending approval.</p>
+    {% else %}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Created by</th>
+                    <th>Calories</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for recipe in recipes %}
+                    <tr>
+                        <td>{{ recipe.title }}</td>
+                        <td>{{ recipe.createdBy.email }}</td>
+                        <td>{{ recipe.calories }}</td>
+                        <td>
+                            <a href="{{ path('admin_recipes_show', {'id': recipe.id}) }}" class="btn btn-secondary btn-sm">Show</a>
+                            <a href="{{ path('admin_recipes_edit', {'id': recipe.id}) }}" class="btn btn-primary btn-sm">Edit</a>
+                            <a href="{{ path('admin_recipes_approve', {'id': recipe.id}) }}" class="btn btn-success btn-sm">Approve</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+    {% endif %}
+    <a href="{{ path('admin_dashboard') }}" class="btn btn-secondary mt-3">
+    <i class="fas fa-arrow-left me-1"></i> Back to Dashboard
+</a>
+
+</div>
+{% endblock %}

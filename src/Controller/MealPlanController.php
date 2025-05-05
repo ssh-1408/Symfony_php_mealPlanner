@@ -19,43 +19,35 @@ final class MealPlanController extends AbstractController
     public function index(Request $request, MealPlanRepository $mealPlanRepository): Response
     {
         date_default_timezone_set('Europe/Vienna');
-
-        $offset = (int) $request->query->get('week', 0); // 0 = current week, -1 = last, +1 = next
         $now = new \DateTimeImmutable();
+
+        $offset = (int) $request->query->get('week', 0);
         $startOfWeek = $now->modify('monday this week')->modify("+$offset week");
 
-        $currentDay = $now->format('l'); // "Monday", "Tuesday", etc.
+        $currentDateParam = $request->query->get('day');
+        $currentDate = $currentDateParam
+            ? new \DateTimeImmutable($currentDateParam)
+            : $now;
+
         $weekDays = [];
         for ($i = 0; $i < 7; $i++) {
-            $day = $startOfWeek->add(new \DateInterval("P{$i}D")); // FIXED here
+            $day = $startOfWeek->add(new \DateInterval("P{$i}D"));
             $weekDays[] = [
-                'label' => $day->format('l'),     // e.g. "Monday"
-                'date' => $day->format('Y-m-d'),  // e.g. "2025-04-28"
-                'display' => $day->format('D – j M'), // "Mon – 28 Apr"
+                'label' => $day->format('l'),        // "Monday"
+                'date' => $day->format('Y-m-d'),     // "2025-05-01"
+                'display' => $day->format('j F'),    // "1 May"
             ];
         }
-        $mealPlans = $mealPlanRepository->findAll();
 
-        $plansByDayAndMeal = [];
-        foreach ($mealPlans as $plan) {
-            $day = $plan->getMealDate()->format('l');         // e.g., Monday
-            $meal = $plan->getMealtime()->value;              // e.g., lunch
-
-            $plansByDayAndMeal[$day][$meal] = [
-                'id' => $plan->getId(),
-                'recipe' => [
-                    'title' => $plan->getRecipe()->getTitle()
-                ]
-            ];
-        }
+        $user = $this->getUser();
+        $mealPlansForDay = $mealPlanRepository->findByDateAndUser($currentDate, $user);
 
         return $this->render('meal_plan/index.html.twig', [
             'weekDays' => $weekDays,
-            'currentDay' => $currentDay,
+            'currentDate' => $currentDate->format('Y-m-d'),
             'now' => $now,
             'offset' => $offset,
-            'meal_plans' => $mealPlans,
-            'plans' => $plansByDayAndMeal,
+            'meal_plans' => $mealPlansForDay,
         ]);
     }
 
@@ -64,11 +56,11 @@ final class MealPlanController extends AbstractController
     {
         $mealPlan = new MealPlan();
         // Get date and mealtime from query
-        $mealDate = $request->query->get('date');
+        $date = $request->query->get('date');
         $mealtime = $request->query->get('mealtime');
 
-        if ($mealDate) {
-            $mealPlan->setMealDate(new \DateTimeImmutable($mealDate));
+        if ($date) {
+            $mealPlan->setMealDate(new \DateTimeImmutable($date));
         }
         if ($mealtime) {
             $mealPlan->setMealtime(Mealtime::from(strtolower($mealtime))); // assuming you use PHP enum
@@ -98,14 +90,21 @@ final class MealPlanController extends AbstractController
     #[Route('/{id}', name: 'app_meal_plan_show', methods: ['GET'])]
     public function show(MealPlan $mealPlan): Response
     {
+        $recipe = $mealPlan->getRecipe();
+
         return $this->render('meal_plan/show.html.twig', [
-            'meal_plan' => $mealPlan,
+            'mealPlan' => $mealPlan,
+            'recipe' => $recipe,
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_meal_plan_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, MealPlan $mealPlan, EntityManagerInterface $entityManager): Response
     {
+        if ($mealPlan->getUser() !== $this->getUser()) {
+            throw $this->createAccessDeniedException('Access denied.');
+        }
+
         $form = $this->createForm(MealPlanForm::class, $mealPlan);
         $form->handleRequest($request);
 
@@ -124,6 +123,10 @@ final class MealPlanController extends AbstractController
     #[Route('/{id}', name: 'app_meal_plan_delete', methods: ['POST'])]
     public function delete(Request $request, MealPlan $mealPlan, EntityManagerInterface $entityManager): Response
     {
+        if ($mealPlan->getUser() !== $this->getUser()) {
+            throw $this->createAccessDeniedException('Access denied.');
+        }
+
         if ($this->isCsrfTokenValid('delete' . $mealPlan->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($mealPlan);
             $entityManager->flush();

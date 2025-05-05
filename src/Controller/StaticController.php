@@ -8,16 +8,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class StaticController extends AbstractController
 {
-    #[Route('/', name: 'app_index')]
-    public function index(): Response
 
-    {
-
-
-        return $this->render('static/index.html.twig');
-    }
-
-    #[Route('/home', name: 'app_home')]
+    #[Route('/', name: 'app_home')]
     public function home(): Response
 
     {
