@@ -28,7 +28,7 @@
                   </li>
 
                   <li class="nav-item">
-                  <a class="nav-link" href="{{ path('app_shopping_list_new') }}">Shopping List</a>
+                  <a class="nav-link" href="{{ path('app_shopping_list_index') }}">Shopping List</a>
                    </li>
                 {% endif %}
 
@@ -37,6 +37,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_team') }}">Team</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_customers') }}">Customers</a>
                 </li>
 
                 {% if app.user and is_granted('ROLE_ADMIN') %}
