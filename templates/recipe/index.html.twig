@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recipe Index{% endblock %}
+{% block title %}Recipe{% endblock %}
 
 {% block body %}
 <section class="py-5 bg-light">
@@ -9,6 +9,7 @@
             <h2 class="mb-0">Recipes</h2>
             <a href="{{ path('app_recipe_new') }}" class="btn custom-button">Create New</a>
         </div>
+        <!-- Recipe filter group -->
         <div class="mb-4 text-center">
             <div class="btn-group" role="group">
                 <a href="{{ path('app_recipe_index') }}" class="btn btn-outline-dark">📋 All</a>
@@ -19,13 +20,15 @@
         </div>
         </div>
 
+<!-- Recipe card -->
+
         {% if recipes is not empty %}
             <div class="row g-4">
                 {% for recipe in recipes %}
-                    <div class="col-md-4">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-4">
                         <div class="card h-100 shadow-sm border-0">
                             
-                            <img src="{{ asset('images/recipeUploads/' ~ recipe.image) }}" class="card-img-top p-2" alt="{{ recipe.title }}">
+                            <img src="{{ asset('images/recipeUploads/' ~ recipe.image) }}" class="card-img-top p-2" style="height: 200px; width: 80%; object-fit: cover; display: block; margin: 0 auto; border-radius: 20px;" alt="{{ recipe.title }}">
                           
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title text-center">{{ recipe.title }}</h5>
