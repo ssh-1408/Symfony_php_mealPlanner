@@ -16,7 +16,7 @@ class ShoppingListItemTypeForm extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Shopping list name',
+                'label' => 'Product',
                 'attr' => ['class' => 'form-control mb-3']
             ])
 

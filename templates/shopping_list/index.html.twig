@@ -1,22 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Your Shopping List!{% endblock %}
+{% block title %}My Shopping Lists{% endblock %}
 
 {% block body %}
-    <h1>Meine Einkaufslisten</h1>
-    
-    <a href="{{ path('app_shopping_list_new') }}">Neue Liste</a>
-
-    {% for list in lists %}
-        <div class="list">
-            <h2>{{ list.name }}</h2>
-            <ul>
-                {% for item in list.items %}
-                    <li>{{ item.amount }} {{ item.name }}</li>
-                {% endfor %}
-            </ul>
+<section class="py-5 bg-light">
+    <div class="container bg-white p-3">
+        <h1>My shopping lists <a class="btn btn-sm custom-button" href="{{ path('app_shopping_list_new') }}">Add list</a></h1>
+        <p class="mb-3 text-muted">&nbsp;</p>
+        <div class="row">
+            {% for list in lists %}
+                <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <h5>{{ list.name }}</h5>
+                            <ul class="list-unstyled">
+                                {% for item in list.items %}
+                                    <li>{{ item.amount }} {{ item.name }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <a href="{{ path('app_shopping_list_edit', {'id': list.id}) }}" 
+                            class="btn btn-sm btn-outline-primary">
+                                Edit
+                            </a>
+                            
+                            <form method="post" 
+                                action="{{ path('app_shopping_list_delete', {'id': list.id}) }}"
+                                onsubmit="return confirm('Are you sure?')">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ list.id) }}">
+                                <button class="btn btn-sm btn-outline-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-    {% endfor %}
+    </div>
+</section>
 {% endblock %}
 
 {# {% block javascripts %}
@@ -134,3 +155,4 @@
         });
     </script>
 {% endblock %} #}
+
