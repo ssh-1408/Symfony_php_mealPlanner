@@ -49,7 +49,7 @@
         background-color:  #295c8b;
         color: white;
         font-weight: bold;
-        border: 1px solid var(--color-1); /* add this line */
+        border: 1px solid var(--color-1); 
       }
       
       .custom-button-calender:hover {
@@ -62,12 +62,6 @@
         color: var(--color-1);
     }
 
-    .card-img-top {
-        width: 70%;
-        object-fit: cover; /* Crop and scale image to fill */
-        border-radius: 1rem;
-        display: block;       /* ensures margin auto works */
-        margin: 0 auto;       /* centers the image horizontally */
-      }
+    
 
-     
+      

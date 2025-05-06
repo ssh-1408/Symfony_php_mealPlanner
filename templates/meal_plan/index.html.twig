@@ -1,9 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}MealPlan index{% endblock %}
+{% block title %}MealPlan{% endblock %}
 
 {% block body %}
-<div class="container bg-white p-4 rounded shadow mt-5">
+<section class="py-5 bg-light">
+<div class="container bg-white p-3">
     <h1 class="mb-3">My Meal Plans 🥣🗓️ </h1>
     <p class="mb-3 text-muted">Today is {{ now|date('l, j F Y – H:i') }}</p>
     <a href="{{ path('app_meal_plan_index') }}" class="btn btn-sm custom-button mb-3">
@@ -72,8 +73,6 @@
 
 </div>
 
-
-
 {% set currentDayData = weekDays|filter(d => d.date == currentDate)|first %}
 
 <!-- Cards with meals -->
@@ -88,13 +87,13 @@
             {% endif %}
         {% endfor %}
 
-        <div class="col-md-3 mb-4">
+        <div class="col-12 col-sm-6 col-md-3 col-lg-3">
             <div class="card h-100">
                 <div class="card-body text-center">
                     <h5 class="card-title">{{ meal }}</h5>
                     {% if plan %}
                         <p class="card-text"><strong>{{ plan.recipe.title }}</strong></p>
-                        <img src="{{ asset('images/recipeUploads/' ~ plan.recipe.image) }}" class="card-img-top p-2" alt="{{ plan.recipe.title }}">  
+                        <img src="{{ asset('images/recipeUploads/' ~ plan.recipe.image) }}" class="card-img-top p-2" style="height: 150px; width: 80%; object-fit: cover; display: block; margin: 0 auto; border-radius: 20px;" alt="{{ plan.recipe.title }}">  
                         <a href="{{ path('app_meal_plan_edit', {'id': plan.id}) }}" class="btn btn-sm my-2 w-100 custom-button">✎ Edit</a>
                         <a href="{{ path('app_meal_plan_show', {'id': plan.id}) }}" class="btn btn-sm my-2 w-100 custom-button">Show Recipe</a>
                     {% else %}
@@ -115,11 +114,9 @@
 
 </div>
 
-
-
  <!-- BMI part -->
 
-<div class="container py-5">
+<div class="container bg-white p-3">
     <h2 class="mb-4 text-center">BMI Calculator</h2>
 
     <div class="d-flex flex-wrap gap-5 justify-content-center">
@@ -189,4 +186,6 @@
         </div>
     </div>
 </div>
+
+</section>
 {% endblock %}
