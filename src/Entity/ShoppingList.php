@@ -13,35 +13,38 @@ class ShoppingList
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'shoppingLists')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
-
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(type: 'text')]
-    private ?string $ingredientsList = null;
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column(type: 'datetime')]
-    private ?\DateTimeInterface $createdAt = null;
-
-    public function __construct()
+    public function getId(): ?int
     {
-        $this->createdAt = new \DateTime();
+        return $this->id;
     }
 
-    public function getId(): ?int { return $this->id; }
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
 
-    public function getUser(): ?User { return $this->user; }
-    public function setUser(?User $user): self { $this->user = $user; return $this; }
+    public function setName(string $name): static
+    {
+        $this->name = $name;
 
-    public function getName(): ?string { return $this->name; }
-    public function setName(string $name): self { $this->name = $name; return $this; }
+        return $this;
+    }
 
-    public function getIngredientsList(): ?string { return $this->ingredientsList; }
-    public function setIngredientsList(string $ingredientsList): self { $this->ingredientsList = $ingredientsList; return $this; }
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
 
-    public function getCreatedAt(): ?\DateTimeInterface { return $this->createdAt; }
-    public function setCreatedAt(\DateTimeInterface $createdAt): self { $this->createdAt = $createdAt; return $this; }
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
 }

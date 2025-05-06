@@ -2,22 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\ShoppingList;
+use App\Entity\ShoppingListItem;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ShoppingList>
+ * @extends ServiceEntityRepository<ShoppingListItem>
  */
-class ShoppingListRepository extends ServiceEntityRepository
+class ShoppingListItemRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ShoppingList::class);
+        parent::__construct($registry, ShoppingListItem::class);
     }
 
     //    /**
-    //     * @return ShoppingList[] Returns an array of ShoppingList objects
+    //     * @return ShoppingListItem[] Returns an array of ShoppingListItem objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class ShoppingListRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?ShoppingList
+    //    public function findOneBySomeField($value): ?ShoppingListItem
     //    {
     //        return $this->createQueryBuilder('s')
     //            ->andWhere('s.exampleField = :val')

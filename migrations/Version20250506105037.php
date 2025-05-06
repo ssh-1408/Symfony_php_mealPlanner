@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20250429180855 extends AbstractMigration
+final class Version20250506105037 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -21,7 +21,10 @@ final class Version20250429180855 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql(<<<'SQL'
-            ALTER TABLE meal_plan CHANGE meal_date meal_date DATE NOT NULL
+            CREATE TABLE shopping_list_item (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, amount VARCHAR(255) NOT NULL, list VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+        SQL);
+        $this->addSql(<<<'SQL'
+            ALTER TABLE shopping_list ADD created_at DATETIME NOT NULL COMMENT '(DC2Type:datetime_immutable)', DROP amount
         SQL);
     }
 
@@ -29,7 +32,10 @@ final class Version20250429180855 extends AbstractMigration
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql(<<<'SQL'
-            ALTER TABLE meal_plan CHANGE meal_date meal_date DATETIME NOT NULL
+            DROP TABLE shopping_list_item
+        SQL);
+        $this->addSql(<<<'SQL'
+            ALTER TABLE shopping_list ADD amount VARCHAR(255) NOT NULL, DROP created_at
         SQL);
     }
 }
