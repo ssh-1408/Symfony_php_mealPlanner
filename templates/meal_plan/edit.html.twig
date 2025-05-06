@@ -3,14 +3,27 @@
 {% block title %}Edit MealPlan{% endblock %}
 
 {% block body %}
-<div class="container bg-white p-4 rounded shadow mt-5">
+<div class="container mt-5">
     <h1 class="mb-4 text-center">Edit Meal Plan</h1>
 
-    {{ include('meal_plan/_form.html.twig', {'button_label': 'Update'}) }}
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    
+                    <h5 class="mb-3">Filter Recipes:</h5>
+                    <div class="btn-group mb-4">
+                        <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'filter': 'all', 'id': meal_plan.id})) }}" class="btn btn-outline-dark">All</a>
+                        <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'filter': 'vegan', 'id': meal_plan.id})) }}" class="btn btn-outline-dark">Vegan 🌱</a>
+                        <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'filter': 'vegetarian', 'id': meal_plan.id})) }}" class="btn btn-outline-dark">Vegetarian 🥬</a>
+                        <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'filter': 'low_calories', 'id': meal_plan.id})) }}" class="btn btn-outline-dark">Under 200 kcal 🔥</a>
+                        <a href="{{ path(app.request.attributes.get('_route'), app.request.query.all|merge({'filter': 'quick', 'id': meal_plan.id})) }}" class="btn btn-outline-dark">Quick ⏱️</a>
+                    </div>
 
-    <div class="d-flex justify-content-between mt-4">
-        <a href="{{ path('app_meal_plan_index') }}" class="btn btn-sm my-2 custom-button">← Back to Meal Plan</a>
-        {{ include('meal_plan/_delete_form.html.twig') }}
-    </div>
+                    {{ include('meal_plan/_form.html.twig', {'button_label': 'Update'}) }}
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="{{ path('app_meal_plan_index') }}" class="btn btn-sm my-2 custom-button">← Back to Meal Plan</a>
+                        {{ include('meal_plan/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
 </div>
 {% endblock %}

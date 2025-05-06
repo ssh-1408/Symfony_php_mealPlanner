@@ -40,8 +40,36 @@
     {% endfor %}
 
     <div class="alert alert-info d-inline-block px-4 py-3 shadow-sm rounded">
-        <h5 class="mb-0">Estimated Daily Calories: <strong>{{ totalCalories }}</strong> kcal</h5>
+    <h5 class="mb-0">
+        🔥 Estimated Daily Calories from Meals: <strong>{{ totalCalories }}</strong> kcal
+    </h5>
     </div>
+
+    {% if recommendedCalories %}
+        <div class="alert alert-warning d-inline-block px-4 py-3 shadow-sm rounded mt-3">
+            <h5 class="mb-0">
+            💡 Recommended Daily Calories (Based on BMI): <strong>{{ recommendedCalories }}</strong> kcal
+            </h5>
+        </div>
+
+        {% set calorieDiff = totalCalories - recommendedCalories %}
+    {% if calorieDiff > 0 %}
+        <div class="alert alert-danger mt-3">
+            🍔 You are over your recommended intake by <strong>{{ calorieDiff }}</strong> kcal.
+            Consider reducing your portion or increasing activity.
+        </div>
+    {% elseif calorieDiff < 0 %}
+        <div class="alert alert-success  mt-3">
+            ✅ You are under your recommended intake by <strong>{{ calorieDiff | abs }}</strong> kcal.
+            You might need a healthy snack or meal to meet your needs.
+        </div>
+    {% else %}
+        <div class="alert alert-success mt-3">
+            ✅ Perfect! You're right on track with your recommended calorie intake.
+        </div>
+    {% endif %}
+    {% endif %}
+
 </div>
 
 
@@ -87,4 +115,78 @@
 
 </div>
 
+
+
+ <!-- BMI part -->
+
+<div class="container py-5">
+    <h2 class="mb-4 text-center">BMI Calculator</h2>
+
+    <div class="d-flex flex-wrap gap-5 justify-content-center">
+
+        <!-- BMI Form -->
+        <div class="flex-fill bg-light p-4 rounded shadow-sm" style="min-width: 300px; max-width: 400px;">
+            {{ form_start(form) }}
+                <div class="mb-3">
+                    {{ form_row(form.mass) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_row(form.height) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_row(form.age) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_row(form.gender) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_row(form.activityLevel) }}
+                </div>
+
+                <button class="btn custom-button w-100">Calculate BMI</button>
+            
+            {{ form_end(form) }}
+        </div>    
+
+        <!-- BMI Result / Recommendation -->
+        <div class="flex-fill bg-light p-4 rounded shadow-sm" style="min-width: 300px; max-width: 500px;">
+             {% if bmi is defined and bmi is not null %}
+             <!-- BMI Colors -->
+                {% set bmiCategory = bmi.getCategory() %}
+                {% set bmiColor = {
+                'underweight': 'text-primary',
+                'normal': 'text-success',
+                'overweight': 'text-warning',
+                'obese': 'text-danger'
+                }[bmiCategory.value] %}
+
+                <h4 class="mb-3">Your Result</h4>
+                <p><strong>BMI:</strong> <span class="{{ bmiColor }}">{{ bmi.bmiValue }}</span></p>
+                <p><strong>Category:</strong> <span class="{{ bmiColor }}">{{ bmiCategory.label() }}</span></p>
+
+                <p><strong>Estimated Calories:</strong> {{ bmi.estimateCalories() }} kcal/day</p>
+                <hr>
+                <h5>🟩 Healthy BMI Range</h5>
+                <p>18.5 – 24.9 kg/m² is considered a healthy range.</p>
+                
+                <h5 class="mb-2">🎯 Want to Lose Weight?</h5>
+                <p class="text-muted">Subscribe to the <strong>Advanced Version</strong> for personalized meal plans, calorie tracking, and expert tips to help you achieve your goals faster.</p> 
+                <a href="#" class="btn custom-button w-100 mt-2">💪 Subscribe Now</a>
+                
+   
+            {% else %}
+                <div class="d-flex h-100 justify-content-center align-items-center flex-column" style="min-height: 200px;">
+                    <p class="text-muted text-center fs-5">
+                    🚀 Ready to take charge of your health? <br>
+                    Enter your info to discover your BMI and get tips tailored just for you!
+                    </p>
+                    <p class="text-muted text-center fs-5 mt-3">
+                    🌱 Small steps lead to big changes. <br>
+                    Track your progress and become the best version of yourself—starting today!
+                    </p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock %}
