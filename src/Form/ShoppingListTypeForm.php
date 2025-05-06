@@ -25,10 +25,12 @@ class ShoppingListTypeForm extends AbstractType
 
             ->add('items', CollectionType::class, [
                 'entry_type' => ShoppingListItemTypeForm::class,
+                'label' => false,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
+                'attr' => ['class' => 'mb-3']
             ])
         ;
     }

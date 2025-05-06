@@ -29,7 +29,7 @@ final class ShoppingListController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // Ensure all items are linked to the list
             foreach ($shoppingList->getItems() as $item) {
-                $item->setShoppingList($shoppingList); // <-- THIS IS CRUCIAL
+                $item->setShoppingList($shoppingList); // <-- THIS IS IMPORTANT
             }
 
             $em->persist($shoppingList);
@@ -43,11 +43,11 @@ final class ShoppingListController extends AbstractController
         ]);
     }
 
-    // List index
+    // Overview
     #[Route('/index', name: 'app_shopping_list_index')]
     public function index(ShoppingListRepository $repo): Response
     {
-        // Nur Listen des aktuellen Users anzeigen
+        // Show lists of the current user
         $lists = $repo->findBy(['user' => $this->getUser()]);
         return $this->render('shopping_list/index.html.twig', [
             'lists' => $lists,
@@ -90,8 +90,8 @@ final class ShoppingListController extends AbstractController
     // Delete list
     #[Route('/{id}', name: 'app_shopping_list_delete', methods: ['POST'])]
     public function delete(
-        Request $request, 
-        ShoppingList $shoppingList, 
+        Request $request,
+        ShoppingList $shoppingList,
         EntityManagerInterface $em
     ): Response {
         // Verify ownership
@@ -99,7 +99,7 @@ final class ShoppingListController extends AbstractController
             throw $this->createAccessDeniedException();
         }
 
-        if ($this->isCsrfTokenValid('delete'.$shoppingList->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $shoppingList->getId(), $request->request->get('_token'))) {
             $em->remove($shoppingList);
             $em->flush();
             $this->addFlash('success', 'List deleted!');
