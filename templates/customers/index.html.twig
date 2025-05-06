@@ -3,62 +3,244 @@
 {% block title %}Happy Customers{% endblock %}
 
 {% block body %}
-    <h1 style="text-align: center; color: white; font-size: 50px; margin-top: 60px;">Happy Customers  &amp; Partners</h1>
+<h1 style="text-align: center; color: white; font-size: 50px; margin-top: 60px;">Happy Customers &amp; Partners</h1>
 
-    {% set customers = [
-        {
-            name: 'Johnny Depp',
-            image: 'johnny.webp',
-            quote: 'Before MealPlanner, I was always skipping meals or eating junk. Now I feel energized and balanced every day. It’s like having a personal chef and coach in one app!'
-        },
-        {
-            name: 'Leonardo DiCaprio',
-            image: 'leo.jpg',
-            quote: 'MealitUp gave me the structure I never knew I needed. It’s more than an app – it’s a lifestyle change.'
-        },
-        {
-            name: 'Emma Watson',
-            image: 'emma.webp',
-            quote: 'As someone constantly on the go, I struggled to eat healthy. MealitUp made it incredibly easy to plan and enjoy real food.'
-        },
-        {
-            name: 'Ryan Reynolds',
-            image: 'ryan.jpg',
-            quote: 'Eating clean used to feel like a chore. Now it feels like a reward. MealitUp turned healthy eating into something I genuinely look forward to.'
-        },
-        {
-            name: 'Zendaya',
-            image: 'zendaya.jpg',
-            quote: 'MealitUp helped me gain control over my nutrition, even during the busiest days. Total game changer.'
-        }
-    ] %}
+{% set customers = [
+    {
+        name: 'Johnny Depp',
+        image: 'johnny.webp',
+        quote: 'Before MealPlanner, I was always skipping meals or eating junk. Now I feel energized and balanced every day. It’s like having a personal chef and coach in one app!'
+    },
+    {
+        name: 'Leonardo DiCaprio',
+        image: 'leo.jpg',
+        quote: 'MealitUp gave me the structure I never knew I needed. It’s more than an app – it’s a lifestyle change.'
+    },
+    {
+        name: 'Emma Watson',
+        image: 'emma.webp',
+        quote: 'As someone constantly on the go, I struggled to eat healthy. MealitUp made it incredibly easy to plan and enjoy real food.'
+    },
+    {
+        name: 'Ryan Reynolds',
+        image: 'ryan.jpg',
+        quote: 'Eating clean used to feel like a chore. Now it feels like a reward. MealitUp turned healthy eating into something I genuinely look forward to.'
+    },
+    {
+        name: 'Zendaya',
+        image: 'zendaya.jpg',
+        quote: 'MealitUp helped me gain control over my nutrition, even during the busiest days. Total game changer.'
+    }
+] %}
 
-    <div style="display: flex; flex-direction: column; gap: 40px; align-items: center; margin-top: 60px; padding: 0 20px 80px;">
-        {% for customer in customers %}
-            <div style="max-width: 800px; width: 100%; background-color: #1e1e1e; border: 3px solid #a11e1e; border-radius: 12px; padding: 30px; text-align: center;">
-                <img src="{{ asset('images/customers/' ~ customer.image) }}" alt="{{ customer.name }}"
-                     style="width: 140px; height: 140px; object-fit: cover; border-radius: 50%; margin-bottom: 20px;">
-                <h3 style="color: white; font-size: 24px; margin-bottom: 10px;">{{ customer.name }}</h3>
-                <p style="color: white; font-size: 18px; font-style: italic;">“{{ customer.quote }}”</p>
-            </div>
-        {% endfor %}
-    </div>
-
-    {# Partner section based on your screenshot #}
-    <div style="text-align: center; padding: 60px 20px; background-color: #f9f9f9;">
-        <h2 style="font-size: 32px; color: #333;">As Seen In</h2>
-
-        <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 40px; margin-top: 40px;">
-            <img src="{{ asset('images/partners/cnn.png') }}" alt="CNN" style="height: 50px;">
-            <img src="{{ asset('images/partners/lifehacker.jpg') }}" alt="Lifehacker" style="height: 50px;">
-            <img src="{{ asset('images/partners/washington.png') }}" alt="Washington Post" style="height: 50px;">
-            <img src="{{ asset('images/partners/healtliner.png') }}" alt="Healthline" style="height: 50px;">
-            <img src="{{ asset('images/partners/gurdian.png') }}" alt="The Guardian" style="height: 50px;">
+<div style="display: flex; flex-direction: column; gap: 40px; align-items: center; margin-top: 60px; padding: 0 20px 80px;">
+    {% for customer in customers %}
+        <div style="max-width: 800px; width: 100%; background-color: #1e1e1e; border: 3px solid #a11e1e; border-radius: 12px; padding: 30px; text-align: center;">
+            <img src="{{ asset('images/customers/' ~ customer.image) }}" alt="{{ customer.name }}"
+                 style="width: 140px; height: 140px; object-fit: cover; border-radius: 50%; margin-bottom: 20px;">
+            <h3 style="color: white; font-size: 24px; margin-bottom: 10px;">{{ customer.name }}</h3>
+            <p style="color: white; font-size: 18px; font-style: italic;">“{{ customer.quote }}”</p>
         </div>
+    {% endfor %}
+</div>
 
-        <p style="margin-top: 40px; font-size: 18px; color: #555;">
-            Named <strong style="color: #007BFF;">Best Meal Planning App of 2025</strong> by CNN
-        </p>
+{# ⭐ GOOGLE REVIEW SLIDER ⭐ #}
+<div style="background-color: #f4f4f4; padding: 60px 20px; text-align: center;">
+    <h2 style="font-size: 32px; color: #222;">EXCELLENT</h2>
+    <div style="font-size: 28px; color: #ffc107;">★★★★★</div>
+    <p style="margin: 10px 0; font-size: 16px;">Based on <strong><u>170 Google Reviews</u></strong></p>
+    <img src="{{ asset('images/google-logo.png') }}" alt="Google" style="height: 30px; margin-bottom: 30px;">
+
+    <div class="review-slider-wrapper">
+        <button class="review-arrow left">&#10094;</button>
+        <div class="review-slider" id="reviewSlider">
+            {% set reviews = [
+                {
+                    name: 'Julia M.',
+                    date: 'March 28, 2025',
+                    text: 'MealitUp completely changed how I eat. Planning healthy meals is now effortless!',
+                    stars: 5
+                },
+                {
+                    name: 'Tobias F.',
+                    date: 'March 23, 2025',
+                    text: 'Been using MealPlanner for 3 weeks – no more fast food, and I feel great!',
+                    stars: 5
+                },
+                {
+                    name: 'Nina S.',
+                    date: 'March 5, 2025',
+                    text: 'Beautiful UI, simple recipes, personalized suggestions – just what I needed.',
+                    stars: 5
+                },
+                {
+                    name: 'Omar L.',
+                    date: 'February 25, 2025',
+                    text: 'Perfect for my busy schedule. I plan every Sunday and eat clean all week.',
+                    stars: 5
+                }, {
+                    name: 'Lea W.',
+                    date: 'February 20, 2025',
+                    text: 'I used to struggle with grocery shopping. Now I get a full shopping list each week!',
+                    stars: 5
+                },
+                {
+                    name: 'Ben K.',
+                    date: 'February 14, 2025',
+                    text: 'It’s like having a personal nutritionist in your pocket. Love the smart suggestions!',
+                    stars: 5
+                },
+                {
+                    name: 'Sophie H.',
+                    date: 'February 9, 2025',
+                    text: 'Finally an app that fits my diet preferences. Vegan options are amazing!',
+                    stars: 5
+                },
+                {
+                    name: 'Daniel R.',
+                    date: 'January 30, 2025',
+                    text: 'I’ve lost 4kg without even trying – just by eating balanced meals daily. Highly recommend!',
+                    stars: 5
+                },
+                {
+                    name: 'Mila E.',
+                    date: 'January 15, 2025',
+                    text: 'The recipe variety is incredible. I never feel bored eating healthy anymore.',
+                    stars: 5
+                },
+                {
+                    name: 'Clara D.',
+                    date: 'March 31, 2025',
+                    text: 'MealitUp made it so easy to stick to my fitness goals. I eat better, feel better, and save time.',
+                    stars: 5
+                },
+                {
+                    name: 'Max J.',
+                    date: 'March 18, 2025',
+                    text: 'Honestly didn’t expect to love it this much. Great recipes, zero stress around meals now.',
+                    stars: 5
+                },
+                {
+                    name: 'Isabelle R.',
+                    date: 'March 10, 2025',
+                    text: 'Super user-friendly and surprisingly fun to use. Even my kids enjoy helping with the planning!',
+                    stars: 5
+                }
+                
+
+
+            ] %}
+
+            {% for review in reviews %}
+                <div class="review-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong>{{ review.name }}</strong>
+                        <img src="{{ asset('images/google-icon.png') }}" alt="Google" style="height: 20px;">
+                    </div>
+                    <p style="color: #777; font-size: 13px;">{{ review.date }}</p>
+                    <div style="color: #ffc107;">
+                        {% for i in 1..review.stars %}★{% endfor %}
+                    </div>
+                    <p style="margin-top: 10px;">{{ review.text }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <button class="review-arrow right">&#10095;</button>
     </div>
-   
+</div>
+
+{# 🧑‍🤝‍🧑 PARTNER SECTION #}
+<div style="text-align: center; padding: 60px 20px; background-color: #f9f9f9;">
+    <h2 style="font-size: 32px; color: #333;">As Seen In</h2>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 40px; margin-top: 40px;">
+        <img src="{{ asset('images/partners/cnn.png') }}" alt="CNN" style="height: 50px;">
+        <img src="{{ asset('images/partners/lifehacker.jpg') }}" alt="Lifehacker" style="height: 50px;">
+        <img src="{{ asset('images/partners/washington.png') }}" alt="Washington Post" style="height: 50px;">
+        <img src="{{ asset('images/partners/healtliner.png') }}" alt="Healthline" style="height: 50px;">
+        <img src="{{ asset('images/partners/gurdian.png') }}" alt="The Guardian" style="height: 50px;">
+    </div>
+    <p style="margin-top: 40px; font-size: 18px; color: #555;">
+        Named <strong style="color: #007BFF;">Best Meal Planning App of 2025</strong> by CNN
+    </p>
+</div>
+<a href="https://wa.me/491234567890" 
+   style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;" 
+   target="_blank" rel="noopener noreferrer">
+    <img src="{{ asset('images/whatsapp-icon.png') }}" 
+         alt="WhatsApp" 
+         style="height: 60px; width: 60px;">
+</a>
+
+
+{# STYLES #}
+<style>
+.review-slider-wrapper {
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+    padding: 10px 0;
+}
+
+.review-slider {
+    display: flex;
+    gap: 20px;
+    scroll-behavior: smooth;
+    overflow-x: auto;
+    padding: 20px 10px;
+}
+
+.review-card {
+    min-width: 280px;
+    max-width: 300px;
+    flex: 0 0 auto;
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.review-arrow {
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.3);
+    color: white;
+    border: none;
+    font-size: 24px;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+}
+
+.review-arrow.left {
+    left: 10px;
+}
+.review-arrow.right {
+    right: 10px;
+}
+</style>
+
+{# SCRIPT #}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const slider = document.getElementById("reviewSlider");
+    const leftBtn = document.querySelector(".review-arrow.left");
+    const rightBtn = document.querySelector(".review-arrow.right");
+
+    leftBtn.addEventListener("click", () => {
+        slider.scrollBy({ left: -300, behavior: 'smooth' });
+    });
+
+    rightBtn.addEventListener("click", () => {
+        slider.scrollBy({ left: 300, behavior: 'smooth' });
+    });
+
+    // Auto-slide every 5 seconds
+    setInterval(() => {
+        slider.scrollBy({ left: 300, behavior: 'smooth' });
+    }, 5000);
+});
+</script>
 {% endblock %}
