@@ -18,17 +18,19 @@
                 <li class="nav-item">
                     <a class="nav-link {% if currentRoute == 'app_about' %}active fw-bold text-primary{% endif %}" href="{{ path('app_about') }}">How it works</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_recipe_index') }}">Browse Recipe</a>
-                </li>
-                
-                <li class="nav-item">
-                    <a class="nav-link {% if currentRoute == 'app_meal_plan_index' %}active fw-bold text-primary{% endif %}" href="{{ path('app_meal_plan_index') }}">Meal Planner</a>
-                </li>
-                
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Shopping List</a>
-                </li>
+               {% if app.user %}
+                 <li class="nav-item">
+                  <a class="nav-link" href="{{ path('app_recipe_index') }}">Browse Recipe</a>
+                   </li>
+
+                 <li class="nav-item">
+                <a class="nav-link {% if currentRoute == 'app_meal_plan_index' %}active fw-bold text-primary{% endif %}" href="{{ path('app_meal_plan_index') }}">Meal Planner</a>
+                  </li>
+
+                  <li class="nav-item">
+                  <a class="nav-link" href="#">Shopping List</a>
+                   </li>
+                {% endif %}
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_contact') }}">Contact</a>
