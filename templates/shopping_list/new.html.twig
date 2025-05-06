@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New shopping list{% endblock %}
+
+{% block body %}
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="mb-0">New shopping list</h2>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        {{ form_start(form) }}
+        {{ form_row(form.name) }}
+        
+        <h3>Zutaten</h3>
+        <ul class="items" data-prototype="{{ form_widget(form.items.vars.prototype)|e('html_attr') }}">
+            {% for item in form.items %}
+                <li>{{ form_row(item.amount) }} {{ form_row(item.name) }}</li>
+            {% endfor %}
+        </ul>
+        
+        <button type="button" class="add_item">+ Add ingredient</button>
+        <button type="submit">Save list</button>
+    {{ form_end(form) }}
+    </div>
+    <script>
+        document.querySelector('.add_item').addEventListener('click', function() {
+            const items = document.querySelector('.items');
+            const prototype = items.dataset.prototype;
+            const newForm = prototype.replace(/__name__/g, items.children.length);
+            items.insertAdjacentHTML('beforeend', newForm);
+        });
+    </script>
+{% endblock %}

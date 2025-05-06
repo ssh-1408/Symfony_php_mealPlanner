@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20250506103832 extends AbstractMigration
+final class Version20250506151056 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -21,13 +21,16 @@ final class Version20250506103832 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql(<<<'SQL'
-            ALTER TABLE shopping_list DROP FOREIGN KEY FK_3DC1A459A76ED395
+            ALTER TABLE shopping_list CHANGE user_id user_id INT DEFAULT NULL
         SQL);
         $this->addSql(<<<'SQL'
-            DROP INDEX IDX_3DC1A459A76ED395 ON shopping_list
+            ALTER TABLE shopping_list ADD CONSTRAINT FK_3DC1A459A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)
         SQL);
         $this->addSql(<<<'SQL'
-            ALTER TABLE shopping_list ADD amount VARCHAR(255) NOT NULL, DROP user_id, DROP ingredients_list, DROP created_at
+            CREATE INDEX IDX_3DC1A459A76ED395 ON shopping_list (user_id)
+        SQL);
+        $this->addSql(<<<'SQL'
+            ALTER TABLE shopping_list_item DROP list
         SQL);
     }
 
@@ -35,13 +38,16 @@ final class Version20250506103832 extends AbstractMigration
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql(<<<'SQL'
-            ALTER TABLE shopping_list ADD user_id INT NOT NULL, ADD ingredients_list LONGTEXT NOT NULL, ADD created_at DATETIME NOT NULL, DROP amount
+            ALTER TABLE shopping_list DROP FOREIGN KEY FK_3DC1A459A76ED395
         SQL);
         $this->addSql(<<<'SQL'
-            ALTER TABLE shopping_list ADD CONSTRAINT FK_3DC1A459A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)
+            DROP INDEX IDX_3DC1A459A76ED395 ON shopping_list
         SQL);
         $this->addSql(<<<'SQL'
-            CREATE INDEX IDX_3DC1A459A76ED395 ON shopping_list (user_id)
+            ALTER TABLE shopping_list CHANGE user_id user_id INT NOT NULL
+        SQL);
+        $this->addSql(<<<'SQL'
+            ALTER TABLE shopping_list_item ADD list VARCHAR(255) NOT NULL
         SQL);
     }
 }

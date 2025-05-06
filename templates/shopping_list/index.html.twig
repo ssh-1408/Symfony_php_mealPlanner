@@ -2,97 +2,24 @@
 
 {% block title %}Your Shopping List!{% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <style>
-        .shopping-list-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .ingredient-row {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-            align-items: center;
-        }
-        .ingredient-input {
-            flex: 2;
-        }
-        .amount-input {
-            flex: 1;
-        }
-        .add-btn {
-            flex: 0 0 40px;
-            height: 38px;
-        }
-        .list-name-input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            font-size: 1.2rem;
-        }
-        .save-btn {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 1.1rem;
-        }
-    </style>
-{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h1>Meine Einkaufslisten</h1>
+    
+    <a href="{{ path('app_shopping_list_new') }}">Neue Liste</a>
 
-
-<section class="py-5 text-white text-center">
-    <div class="container">
-        <h1 class="display-4 fw-bold">My shopping lists</h1>  
-    </div>
-</section>
-
-<div class="container shopping-list-container">
-    {# Form Start #}
-    <form id="shopping-list-form">
-        {# List Name #}
-        <input type="text" class="form-control list-name-input mb-3" placeholder="Name your shopping list" required>
-        
-        {# Ingredients Container #}
-        <div id="ingredients-container">
-            {# First Row - will be added dynamically when clicking the + button #}
+    {% for list in lists %}
+        <div class="list">
+            <h2>{{ list.name }}</h2>
+            <ul>
+                {% for item in list.items %}
+                    <li>{{ item.amount }} {{ item.name }}</li>
+                {% endfor %}
+            </ul>
         </div>
-        
-        {# Initial Add Button #}
-        <div class="text-center mt-4">
-            <button type="button" id="initial-add-btn" class="btn btn-warning fs-2 fw-bold lh-1">
-                +
-            </button>
-        </div>
-        
-        {# Save Button #}
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary save-btn">Save List</button>
-        </div>
-    </form>
-</div>
-
-<hr>
-
-<br>
-
-<hr>
-
-<div class="example-wrapper">
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/xampp/htdocs/mealitup/src/Controller/ShoppingListController.php</code></li>
-        <li>Your template at <code>C:/xampp/htdocs/mealitup/templates/shopping_list/index.html.twig</code></li>
-    </ul>
-</div>
+    {% endfor %}
 {% endblock %}
-{% block javascripts %}
+
+{# {% block javascripts %}
     {{ parent() }}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -206,4 +133,4 @@
             });
         });
     </script>
-{% endblock %}
+{% endblock %} #}

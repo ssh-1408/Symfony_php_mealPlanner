@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ShoppingListItemRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: ShoppingListItemRepository::class)]
 class ShoppingListItem
@@ -19,13 +21,17 @@ class ShoppingListItem
     #[ORM\Column(length: 255)]
     private ?string $amount = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $list = null;
+    // #[ORM\Column(length: 255)]
+    // private ?string $list = null
+
+    #[ORM\ManyToOne(inversedBy: 'items', targetEntity: ShoppingList::class)]
+    #[ORM\JoinColumn(name: 'shopping_list_id', nullable: false)]
+    private ?ShoppingList $shoppingList;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
+    } 
 
     public function getName(): ?string
     {
@@ -51,15 +57,14 @@ class ShoppingListItem
         return $this;
     }
 
-    public function getList(): ?string
+    public function setShoppingList(?ShoppingList $shoppingList): self
     {
-        return $this->list;
+        $this->shoppingList = $shoppingList;
+        return $this;
     }
 
-    public function setList(string $list): static
+    public function getShoppingList(): ?ShoppingList
     {
-        $this->list = $list;
-
-        return $this;
+        return $this->shoppingList;
     }
 }
