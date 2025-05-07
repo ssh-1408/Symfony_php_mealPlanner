@@ -38,6 +38,11 @@ final class ShoppingListController extends AbstractController
             return $this->redirectToRoute('app_shopping_list_index');
         }
 
+        // Show error if form submitted with no items
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $this->addFlash('error', 'Please add at least one ingredient');
+        }
+
         return $this->render('shopping_list/new.html.twig', [
             'form' => $form->createView()
         ]);
