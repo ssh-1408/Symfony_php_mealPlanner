@@ -18,9 +18,10 @@ class EmailService
     {
         $email = (new Email())
             ->from($fromEmail)
-            ->to('admin@example.com') // << Admin-Email eintragen
-            ->subject('New Contact Message')
-            ->text($messageContent);
+            ->replyTo($fromEmail)
+            ->to('svetlana.shmeleva.1@gmail.com') // << Admin-Email eintragen
+            ->subject('New MealitUP Message')
+            ->html($messageContent);
 
         $this->mailer->send($email);
     }
