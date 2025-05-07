@@ -77,10 +77,10 @@ class RecipeForm extends AbstractType
                 'required' => false,
                 'attr' => ['class' => 'form-control mb-3']
             ])
-            ->add('approvedByAdmin', CheckboxType::class, [
+            /*->add('approvedByAdmin', CheckboxType::class, [
                 'label' => 'Approved?',
                 'required' => false
-            ]);
+            ])*/;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

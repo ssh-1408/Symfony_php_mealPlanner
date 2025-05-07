@@ -53,6 +53,7 @@ final class RecipeController extends AbstractController
 
             $recipe->setCreatedBy($this->getUser());
             $recipe->setAverageRating(0);
+            $recipe->setApprovedByAdmin(false);
 
             $image = $form->get('image')->getData();
             if ($image) {
