@@ -3,6 +3,20 @@
 {% block title %}Add New Shopping List{% endblock %}
 
 {% block body %}
+    <style>
+        .items {
+            padding: 0;
+        }
+        .items>div {
+            display: flex;
+        }
+        .items>div>div {
+            width: 50%;
+        }
+        .items>div>div:first-of-type {
+            margin-right: 1rem;
+        }
+    </style>
     <section class="py-5 bg-light">
         <div class="container bg-white p-3">
             <h1 class="mb-3">New shopping list</h1>
