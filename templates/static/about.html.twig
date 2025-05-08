@@ -58,14 +58,15 @@
 
 {# Videos Section #}
 <div class="container text-center" style="margin-top: 60px;">
-    <video width="740" height="560" controls>
+    <video width="740" height="560" controls 
+           poster="{{ asset('images/video_about_1.png') }}">
         <source src="{{ asset('images/meal.mp4')}}" type="video/mp4">
-        Dein Browser unterstützt das Video-Tag nicht.
     </video>
 
     <br><br><br><br><br>
 
-    <video width="740" height="560" controls>
+    <video width="740" height="560" controls
+    poster="{{ asset('images/video_about_2.png') }}">
         <source src="{{ asset('images/ym.mp4') }}" type="video/mp4">
         Dein Browser unterstützt das Video-Tag nicht.
     </video>

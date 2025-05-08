@@ -224,15 +224,15 @@ body {
 <div class="my-5 d-flex flex-wrap justify-content-center align-items-center gap-4">
 
   <!-- Video 1 -->
-  <video class="rounded shadow" style="max-width: 100%; width: 300px;" controls>
-    <source src="{{ asset('images/homepage/mealit.mp4') }}" type="video/mp4">
-    Dein Browser unterstützt das Video-Tag nicht.
+  <video class="rounded shadow" style="max-width: 100%; width: 300px;" controls 
+         poster="{{ asset('images/homepage/video_home_1.png') }}">
+    <source src="{{ asset('images/homepage/mealit.mp4') }}" type="video/mp4">  
   </video>
 
   <!-- Video 2 -->
-  <video class="rounded shadow" style="max-width: 100%; width: 300px;" controls>
+  <video class="rounded shadow" style="max-width: 100%; width: 300px;" controls 
+         poster="{{ asset('images/homepage/video_home_2.png') }}">
     <source src="{{ asset('images/homepage/mockup.mp4') }}" type="video/mp4">
-    Your browser does not support the video tag.
   </video>
 
 </div>
