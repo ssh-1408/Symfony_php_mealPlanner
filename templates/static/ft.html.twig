@@ -18,15 +18,9 @@
             position: relative;
         }
 
-        .footer-content h3 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            color: #ffffff;
-        }
-
         .footer-content em {
             font-size: 1.1rem;
-            opacity: 0.85;
+            
         }
 
         .footer-nav {
@@ -43,8 +37,7 @@
         }
 
         .footer-nav a:hover {
-            color: #FFD700;
-            border-bottom: 2px solid #FFD700;
+            color: #80FF95;  
         }
 
         .footer-socials {
@@ -59,7 +52,7 @@
         }
 
         .footer-socials a:hover {
-            color: #FFD700;
+            color: #80FF95;
             transform: scale(1.2) rotate(5deg);
         }
 
@@ -82,7 +75,7 @@
 
         .sparkle {
             position: absolute;
-            background-color: #FFD700;
+            background-color: #80FF95;
             border-radius: 50%;
             opacity: 0.4;
             animation: twinkle 4s infinite ease-in-out;
@@ -105,21 +98,15 @@
     <div class="sparkle sparkle4"></div>
 
     <!-- Logo hinzufügen -->
-    <img src="{{ asset('images/logo.png')}}" alt="Logo" class="logo" style="max-width: 200px; margin-bottom: 1rem;">
+    <img src="{{ asset('images/logo2.png')}}" alt="Logo" class="logo" style="max-width: 200px; margin-bottom: 1rem;">
 
     <div class="footer-content">
         <p><em>Plan smart. Cook smart. Live smart.</em></p>
 
         {% set currentRoute = app.request.attributes.get('_route') %}
         <nav class="footer-nav">
-            <a href="{{ path('app_about') }}"
-               class="{% if currentRoute == 'app_about' %}fw-bold text-warning{% endif %}">How it works</a>
-            <a href="#">Browse Recipe</a>
-            <a href="{{ path('app_home') }}"
-               class="{% if currentRoute == 'app_home' %}fw-bold text-warning{% endif %}">Home</a>
-            <a href="#">Shopping List</a>
-            <a href="{{ path('app_meal_plan_index') }}"
-               class="{% if currentRoute == 'app_meal_plan_index' %}fw-bold text-warning{% endif %}">Meal Planner</a>
+            <a href="{{ path('app_about') }}">How it works</a>
+            <a href="{{ path('app_home') }}">Home</a>
             <a href="{{ path('app_contact') }}">Contact</a>
             <a href="{{ path('app_team') }}">Team</a>
         </nav>

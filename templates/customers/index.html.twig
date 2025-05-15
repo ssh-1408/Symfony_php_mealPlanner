@@ -3,53 +3,14 @@
 {% block title %}Happy Customers{% endblock %}
 
 {% block body %}
-<h1 style="text-align: center; color: white; font-size: 50px; margin-top: 60px;">Happy Customers &amp; Partners</h1>
-
-{% set customers = [
-    {
-        name: 'Johnny Depp',
-        image: 'johnny.webp',
-        quote: 'Before MealPlanner, I was always skipping meals or eating junk. Now I feel energized and balanced every day. It’s like having a personal chef and coach in one app!'
-    },
-    {
-        name: 'Leonardo DiCaprio',
-        image: 'leo.jpg',
-        quote: 'MealitUp gave me the structure I never knew I needed. It’s more than an app – it’s a lifestyle change.'
-    },
-    {
-        name: 'Emma Watson',
-        image: 'emma.webp',
-        quote: 'As someone constantly on the go, I struggled to eat healthy. MealitUp made it incredibly easy to plan and enjoy real food.'
-    },
-    {
-        name: 'Ryan Reynolds',
-        image: 'ryan.jpg',
-        quote: 'Eating clean used to feel like a chore. Now it feels like a reward. MealitUp turned healthy eating into something I genuinely look forward to.'
-    },
-    {
-        name: 'Zendaya',
-        image: 'zendaya.jpg',
-        quote: 'MealitUp helped me gain control over my nutrition, even during the busiest days. Total game changer.'
-    }
-] %}
-
-<div style="display: flex; flex-direction: column; gap: 40px; align-items: center; margin-top: 60px; padding: 0 20px 80px;">
-    {% for customer in customers %}
-        <div style="max-width: 800px; width: 100%; background-color: #1e1e1e; border: 3px solid #a11e1e; border-radius: 12px; padding: 30px; text-align: center;">
-            <img src="{{ asset('images/customers/' ~ customer.image) }}" alt="{{ customer.name }}"
-                 style="width: 140px; height: 140px; object-fit: cover; border-radius: 50%; margin-bottom: 20px;">
-            <h3 style="color: white; font-size: 24px; margin-bottom: 10px;">{{ customer.name }}</h3>
-            <p style="color: white; font-size: 18px; font-style: italic;">“{{ customer.quote }}”</p>
-        </div>
-    {% endfor %}
-</div>
+<h1 class="p-5 text-center text-white 3rem mt-5">Happy Customers &amp; Partners</h1>
 
 {# ⭐ GOOGLE REVIEW SLIDER ⭐ #}
-<div style="background-color: #f4f4f4; padding: 60px 20px; text-align: center;">
-    <h2 style="font-size: 32px; color: #222;">EXCELLENT</h2>
-    <div style="font-size: 28px; color: #ffc107;">★★★★★</div>
-    <p style="margin: 10px 0; font-size: 16px;">Based on <strong><u>170 Google Reviews</u></strong></p>
-    <img src="{{ asset('images/google-logo.png') }}" alt="Google" style="height: 30px; margin-bottom: 30px;">
+<div class="text-center text-white">
+    <h2  class="text-white 2rem">EXCELLENT</h2>
+    <div class="py-2 2rem" style="color: #ffc107;">★★★★★</div>
+    <p class="py-2 1rem">Based on <strong><u>170 Google Reviews</u></strong></p>
+    <img src="{{ asset('images/google2.png') }}" alt="Google" style="height: 50px; margin-bottom: 20px;">
 
     <div class="review-slider-wrapper">
         <button class="review-arrow left">&#10094;</button>
@@ -134,14 +95,14 @@
             {% for review in reviews %}
                 <div class="review-card">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <strong>{{ review.name }}</strong>
+                        <p style="color:rgb(0, 0, 0);"><strong>{{ review.name }}</strong></p>
                         <img src="{{ asset('images/google-icon.png') }}" alt="Google" style="height: 20px;">
                     </div>
-                    <p style="color: #777; font-size: 13px;">{{ review.date }}</p>
+                    <p class="2rem">{{ review.date }}</p>
                     <div style="color: #ffc107;">
                         {% for i in 1..review.stars %}★{% endfor %}
                     </div>
-                    <p style="margin-top: 10px;">{{ review.text }}</p>
+                    <p style="margin-top: 10px; color:rgb(0, 0, 0);">{{ review.text }}</p>
                 </div>
             {% endfor %}
         </div>
@@ -150,8 +111,8 @@
 </div>
 
 {# 🧑‍🤝‍🧑 PARTNER SECTION #}
-<div style="text-align: center; padding: 60px 20px; background-color: #f9f9f9;">
-    <h2 style="font-size: 32px; color: #333;">As Seen In</h2>
+<div class="p-4 text-center">
+    <h2 class="text-white 2rem">As Seen In</h2>
     <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 40px; margin-top: 40px;">
         <img src="{{ asset('images/partners/cnn.png') }}" alt="CNN" style="height: 50px;">
         <img src="{{ asset('images/partners/lifehacker.jpg') }}" alt="Lifehacker" style="height: 50px;">
@@ -160,7 +121,7 @@
         <img src="{{ asset('images/partners/gurdian.png') }}" alt="The Guardian" style="height: 50px;">
     </div>
     <p style="margin-top: 40px; font-size: 18px; color: #555;">
-        Named <strong style="color: #007BFF;">Best Meal Planning App of 2025</strong> by CNN
+        Named <strong style="color:rgb(255, 255, 255);">Best Meal Planning App of 2025</strong> by CNN
     </p>
 </div>
 <a href="https://wa.me/491234567890" 

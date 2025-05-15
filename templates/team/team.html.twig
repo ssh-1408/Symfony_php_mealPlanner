@@ -7,23 +7,22 @@
 
 {% block body %}
 
-<br><br><br><br><br>
-<h1 style="text-align: center; color: white; font-size: 50px;">Our Team</h1>
+<div class="container"> 
+<h1 class="container mt-5 pt-5" style="text-align: center; color:white; font-size: 50px;">Our Team</h1>
 
-<div style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; margin-top: 60px;">
+<div class="mb-5" style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; margin-top: 60px;">
     {% for member in team %}
-        <div style="border: 3px solid #a11e1e; padding: 20px; width: 220px; text-align: center; background-color: #1e1e1e; border-radius: 12px;">
+        <div style="border: 3px solid #22859B; padding: 20px; width: 220px; text-align: center; background-color: #EBFFF0; border-radius: 12px;">
             <img src="{{ asset('images/team/' ~ member.image) }}" alt="{{ member.name }}" style="width: 180px; height: 180px; object-fit: cover; border-radius: 50%; margin-bottom: 15px;">
-            <h3 style="color: white; font-size: 22px;">{{ member.name }}</h3>
-            <p style="color: white; font-size: 22px;"><strong>{{ member.role }}</strong></p>
-            <p style="color: white; font-size: 22px;"><em>
+            <h3 style="font-size: 22px;">{{ member.name }}</h3>
+            <p style="font-size: 22px;"><strong>{{ member.role }}</strong></p>
+            <p style="font-size: 22px;"><em>
                 Strength - </em> {{ member.strength }}</p>
         </div>
     {% endfor %}
 </div>
 
-<br><br><br><br><br><br>
-<br><br><br><br><br><br>
-<br><br><br><br><br><br>
+</div>
+
 
 {% endblock %}

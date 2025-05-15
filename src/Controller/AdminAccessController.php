@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Recipe;
+use App\Form\RecipeForm;
 use App\Form\UserEditTypeForm;
-use App\Form\RecipeTypeForm;
 use App\Repository\UserRepository;
 use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -88,7 +88,7 @@ class AdminAccessController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        $form = $this->createForm(RecipeTypeForm::class, $recipe);
+        $form = $this->createForm(RecipeForm::class, $recipe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

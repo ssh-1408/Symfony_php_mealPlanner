@@ -44,6 +44,10 @@ final class MealPlanController extends AbstractController
 
         /** @var \App\Entity\User $user */
         $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $mealPlansForDay = $mealPlanRepository->findByDateAndUser($currentDate, $user);
 
         // BMI form
@@ -51,6 +55,7 @@ final class MealPlanController extends AbstractController
         $recommendedCalories = $bmi ? $bmi->estimateCalories() : null;
         $form = $this->createForm(BmiForm::class, $bmi);
         $form->handleRequest($request);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -76,6 +81,7 @@ final class MealPlanController extends AbstractController
             // Clear it after displaying once
             $request->getSession()->remove('bmi_id');
         }
+
 
 
         return $this->render('meal_plan/index.html.twig', [

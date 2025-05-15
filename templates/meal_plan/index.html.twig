@@ -3,8 +3,8 @@
 {% block title %}MealPlan{% endblock %}
 
 {% block body %}
-<section class="py-5 bg-light">
-<div class="container bg-white p-3">
+<section class="py-5" style="background-color: #EBFFF0">
+<div class="container p-3" style="background-color: white">
     <h1 class="mb-3">My Meal Plans 🥣🗓️ </h1>
     <p class="mb-3 text-muted">Today is {{ now|date('l, j F Y – H:i') }}</p>
     <a href="{{ path('app_meal_plan_index') }}" class="btn btn-sm custom-button mb-3">

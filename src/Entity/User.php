@@ -33,9 +33,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private bool $isBlocked;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ShoppingList::class, orphanRemoval: true)]
-    private Collection $shoppingLists;
-
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: RecipeRating::class, orphanRemoval: true)]
     private Collection $recipeRatings;
 
@@ -52,7 +49,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->roles = [];
         $this->isBlocked = false;
-        $this->shoppingLists = new ArrayCollection();
         $this->recipeRatings = new ArrayCollection();
         $this->mealPlans = new ArrayCollection();
         $this->recipes = new ArrayCollection();
@@ -122,28 +118,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     public function eraseCredentials(): void {}
-
-    public function getShoppingLists(): Collection
-    {
-        return $this->shoppingLists;
-    }
-    public function addShoppingList(ShoppingList $shoppingList): self
-    {
-        if (!$this->shoppingLists->contains($shoppingList)) {
-            $this->shoppingLists[] = $shoppingList;
-            $shoppingList->setUser($this);
-        }
-        return $this;
-    }
-    public function removeShoppingList(ShoppingList $shoppingList): self
-    {
-        if ($this->shoppingLists->removeElement($shoppingList)) {
-            if ($shoppingList->getUser() === $this) {
-                $shoppingList->setUser(null);
-            }
-        }
-        return $this;
-    }
 
     public function getRecipeRatings(): Collection
     {

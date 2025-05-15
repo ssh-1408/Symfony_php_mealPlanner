@@ -3,39 +3,45 @@
 {% block title %}About - MealPlanner{% endblock %}
 
 {% block body %}
-<br><br><br>
+<div class="m-5 p-5" style="background-color: #EBFFF0; border-radius: 10px;">
+    <h1 class="p-4">🌱 Meet Your Kitchen Companion</h1>
+    <p class="pb-2">Let’s face it — planning meals every week can feel like one more thing on your never-ending to-do list.</p>
+    <p><strong>MealitUP</strong> turns that chore into a calming ritual. It’s your personal kitchen buddy, helping you eat well, stay organized, and feel good about what’s on your plate — without the stress.</p>
 
-<div class="container mt-5" style="background-color: #1e1e1e; padding: 40px; border-radius: 12px; color: white;">
-    <h1 class="mb-4" style="font-size: 40px;">🌿 About MealPlanner 🌿</h1>
+    <!-- 📹 Add video here -->
+    <div class="mt-4 text-center">
+        <video width="100%" style="max-width: 500px; border-radius: 8px;" controls poster="{{ asset('images/videos/Frame1.png') }}">
+            <source src="{{ asset('images/videos/video1.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+</div>
 
-    <p>
-        Planning meals throughout the week can be stressful – especially when life gets busy.
-        <strong>MealPlanner</strong> is here to help you take control of your food routine in a simple and enjoyable way.
-    </p>
-
-    <h2 class="mt-4" style="margin-top: 30px;">✨ What You Can Do</h2>
+<div class="m-5 p-5" style="background-color: #EBFFF0; border-radius: 10px;">
+    <h1 class="p-4" >🌱 What You Can Do</h2>
     <ul>
-        <li><strong>Create and organize your recipes:</strong> Save your favorite meals with ingredients, preparation steps, calories, and more – all in one place.</li>
-        <li><strong>Plan your meals for the week:</strong> Easily assign meals to specific days and times. See your whole week at a glance and stay organized.</li>
-        <li><strong>Smart recipe search:</strong> Filter recipes by type (e.g. vegetarian, vegan, gluten-free), calories, and preparation time.</li>
-        <li><strong>Generate shopping lists:</strong> Turn your planned meals into a ready-to-use shopping list. Save time at the store and never forget an ingredient again.</li>
-    </ul>
+        <li class="pb-2">📖 <strong>Save your favorite recipes:</strong> Ingredients, steps, and calories — all neatly organized.</li>
+        <li class="pb-2">📅 <strong>Plan your week:</strong> Drag meals onto your calendar and breathe easy.</li>
+        <li class="pb-2">🔍 <strong>Smart filtering:</strong> Find meals by mood, time, or diet (vegan, low-cal, 30-min...).</li>
+        <li>🛒 <strong>One-click shopping list:</strong> Your week, your cart, your peace of mind.</li>
+  </ul>
+</div>
 
-    <h2 class="mt-4" style="margin-top: 30px;">🌱 Made for Every Lifestyle</h2>
+<div class="m-5 p-5" style="background-color: #EBFFF0; border-radius: 10px;">
+    <h1 class="p-4" >🌱 Made for Every Lifestyle</h2>
     <ul>
-        <li>Perfect for vegetarians, vegans, and anyone with food intolerances like gluten or lactose</li>
-        <li>Helpful for athletes and fitness-conscious users who want to track calories and meal balance</li>
-        <li>Supports healthy eating habits by making planning simple and consistent</li>
-        <li>Great for families, singles, or anyone who wants to cook more and stress less</li>
-    </ul>
-
-    <p class="mt-4">
-        Whether you're cooking for yourself, your family, or just looking for inspiration, MealPlanner is your personal assistant in the kitchen.
-        Start planning smarter – your week just got easier.
+        <li class="pb-2">🥗 Whether you’re vegan, gluten-free, or avoiding lactose — we’ve got you covered.</li>
+        <li class="pb-2">💪 Training for something big? Track your calories and macros without spreadsheets.</li>
+        <li class="pb-2">👨‍👩‍👧‍👦 Feeding a family? Let us help you balance busy schedules with healthy habits.</li>
+        <li>🏠 Cooking solo? MealPlanner brings joy and structure back to your kitchen.</li>
+     </ul>
+    <p class="p-2">
+       From inspiration to execution, MealPlanner helps you love what you eat — and how you got there.
     </p>
+</div>
 
     {# Logos für Lebensstile (z. B. vegan, vegetarisch etc.) #}
-<div class="container mt-5" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; padding: 40px 0;">
+<div class="container my-5" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; padding: 40px 0;">
     {% set icons = [
         { name: 'Vegan', image: 'vegan.avif' },
         { name: 'Vegetarian', image: 'vegetarisch.webp' },
@@ -45,30 +51,12 @@
     ] %}
 
     {% for icon in icons %}
-        <div style="width: 170px; height: 160px; background-color: #1e1e1e; border: 3px solid #a11e1e; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+        <div style="width: 170px; height: 160px; background-color: #EBFFF0; border: 3px solid #22859B; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
             <img src="{{ asset('images/icons/' ~ icon.image) }}" alt="{{ icon.name }}"
                  style="width: 80px; height: 80px; object-fit: contain;">
         </div>
     {% endfor %}
 </div>
-</div>
 
 
-
-
-{# Videos Section #}
-<div class="container text-center" style="margin-top: 60px;">
-    <video width="740" height="560" controls 
-           poster="{{ asset('images/video_about_1.png') }}">
-        <source src="{{ asset('images/meal.mp4')}}" type="video/mp4">
-    </video>
-
-    <br><br><br><br><br>
-
-    <video width="740" height="560" controls
-    poster="{{ asset('images/video_about_2.png') }}">
-        <source src="{{ asset('images/ym.mp4') }}" type="video/mp4">
-        Dein Browser unterstützt das Video-Tag nicht.
-    </video>
-</div>
 {% endblock %}

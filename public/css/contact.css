@@ -1,10 +1,10 @@
 .contact-form h3 {
-    color: #0d2c57;
+    color: #22859B;
     margin-bottom: 20px;
 }
 
 .contact-form button {
-    background-color: #cc0000;
+    background-color: #22859B;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -13,7 +13,7 @@
 }
 
 .contact-form button:hover {
-    background-color: #a30000;
+    background-color: #40A6BC;
 }
 
 .contact-map iframe {

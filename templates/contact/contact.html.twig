@@ -9,58 +9,9 @@
     <p class="lead">We would love to hear from you!</p>
 </div>
 
-<section class="py-5">
-    <div class="container">
-        <div class="row g-5">
-            <!-- Left Side: Contact Info -->
-            <div class="contact-info">
-                <h3 id="contact-details-title" class="mb-4">Contact Details</h3>
-
-                <p>
-                    <i class="fas fa-map-marker-alt text-danger me-2"></i> 
-                    <span class="text-white">Operngasse 1, 1010 Vienna, Austria</span>
-                </p>
-
-                <p>
-                    <i class="fas fa-phone text-danger me-2"></i>
-                    <span class="text-white">+43 1 234 5678</span>
-                </p>
-
-                <p>
-                    <i class="fas fa-envelope text-danger me-2"></i>
-                    <a href="mailto:contact@mealitup.com" class="text-white text-decoration-underline">contact@mealitup.com</a>
-                </p>
-
-                <div class="mt-4 mb-4">
-                    <a href="https://facebook.com" target="_blank" class="text-dark me-3">
-                        <i class="fab fa-facebook fa-2x"></i>
-                    </a>
-                    <a href="https://instagram.com" target="_blank" class="text-dark me-3">
-                        <i class="fab fa-instagram fa-2x"></i>
-                    </a>
-                    <a href="https://reddit.com" target="_blank" class="text-dark me-3">
-                        <i class="fab fa-reddit fa-2x"></i>
-                    </a>
-                    <a href="https://linkedin.com" target="_blank" class="text-dark me-3">
-                        <i class="fab fa-linkedin fa-2x"></i>
-                    </a>
-                </div>
-
-                <div class="mt-4">
-                    <iframe
-                        src="https://www.google.com/maps?q=Operngasse+1,+1010+Wien,+Austria&output=embed"
-                        width="100%"
-                        height="250"
-                        style="border-radius: 10px; border: 0;"
-                        allowfullscreen=""
-                        loading="lazy"
-                    ></iframe>
-                </div>
-            </div>
-
-           
-            <div class="col-lg-7 ps-lg-5">
-                <div class="card shadow-sm border-0 p-4">
+<section class="pb-5">
+    <div class="container d-flex justify-content-between align-items-center">
+            <div class="card shadow-sm border-0 m-4 p-3" style="width: 40%;">
                     <h3 class="mb-4" style="color: #0d2c57;">Send a Message</h3>
 
                     <form action="{{ path('app_contact') }}" method="post">
@@ -79,35 +30,71 @@
                             <textarea id="message" name="message" rows="5" class="form-control" required></textarea>
                         </div>
 
-                        <button type="submit" class="btn text-white px-4" style="background-color: #cc0000;">Send</button>
+                        <button type="submit" class="btn text-white px-4" style="background-color: #22859B;">Send</button>
                         {% for message in app.flashes('success') %}
-    <div class="alert alert-success">
-        {{ message }}
-    </div>
-{% endfor %}
+                        
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
 
-{% for message in app.flashes('danger') %}
-    <div class="alert alert-danger">
-        {{ message }}
-    </div>
+                        {% for message in app.flashes('danger') %}
+                            <div class="alert alert-danger">
+                                {{ message }}
+                            </div>
    
-{% endfor %}
+                        {% endfor %}
                     </form>
-                </div>
+            
             </div>
 
-        </div>
+            <div class="m-4" style="width: 30%;">
+                <iframe
+                        src="https://www.google.com/maps?q=Operngasse+1,+1010+Wien,+Austria&output=embed"
+                        width="100%"
+                        height="250"
+                        style="border-radius: 10px; border: 0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                ></iframe>
+            </div>
+
+            <div class="contact-info m-4" style="width: 30%;">
+                <h3 id="contact-details-title" class="mb-4">Contact Details</h3>
+
+                <p>
+                    <i class="fas fa-map-marker-alt me-2"></i> 
+                    <span class="text-white">Operngasse 1, 1010 Vienna, Austria</span>
+                </p>
+
+                <p>
+                    <i class="fas fa-phone me-2"></i>
+                    <span class="text-white">+43 1 234 5678</span>
+                </p>
+
+                <p>
+                    <i class="fas fa-envelope me-2"></i>
+                    <a href="mailto:contact@mealitup.com" class="text-white text-decoration-underline">contact@mealitup.com</a>
+                </p>
+
+                <div class="mt-4 mb-4">
+                    <a href="https://facebook.com" target="_blank" class="text-white me-3">
+                        <i class="fab fa-facebook fa-2x"></i>
+                    </a>
+                    <a href="https://instagram.com" target="_blank" class="text-white me-3">
+                        <i class="fab fa-instagram fa-2x"></i>
+                    </a>
+                    <a href="https://reddit.com" target="_blank" class="text-white me-3">
+                        <i class="fab fa-reddit fa-2x"></i>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" class="text-white me-3">
+                        <i class="fab fa-linkedin fa-2x"></i>
+                    </a>
+                </div>
+            </div>
+         
     </div>
 </section>
 
-<a href="https://wa.me/491234567890" 
-style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;" 
-target="_blank" rel="noopener noreferrer">
- <img src="{{ asset('images/whatsapp-icon.png') }}" 
-      alt="WhatsApp" 
-      style="height: 60px; width: 60px;">
-</a>
-
-<br><br><br><br><br><br>
 {% endblock %}
 

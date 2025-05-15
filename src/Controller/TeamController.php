@@ -17,32 +17,26 @@ final class TeamController extends AbstractController
                 'name' => 'Alfred Mealer',
                 'role' => 'CEO',
                 'strength' => 'Likes to stay healthy',
-                'image' => 'alfred.jpg',
+                'image' => 'alfred2.jpg',
             ],
             [
-                'name' => 'Lena Bauer',
-                'role' => 'Assistentin',
-                'strength' => 'Organized and reliable',
-                'image' => 'lena.jpg',
+                'name' => 'Miriam Zhang',
+                'role' => 'Health Coach',
+                'strength' => 'Passionate about healthy living',
+                'image' => 'miriam2.jpg',
             ],
             [
                 'name' => 'Jan Köhler',
                 'role' => 'Controller',
                 'strength' => 'Strong attention to detail',
-                'image' => 'jan.jpg',
+                'image' => 'jan3.jpg',
             ],
             [
-                'name' => 'Miriam Zhang',
-                'role' => 'Entwicklerin',
-                'strength' => 'Problem solver and fast coder',
-                'image' => 'miriam.jpg',
-            ],
-            [
-                'name' => 'Tom Schneider',
-                'role' => 'Ernährungsberater',
-                'strength' => 'Passionate about healthy living',
-                'image' => 'tom.jpg',
-            ],
+                'name' => 'Lena Bauer',
+                'role' => 'Assistentin',
+                'strength' => 'Organized and reliable',
+                'image' => 'lena2.jpg',
+            ]
         ];
 
 

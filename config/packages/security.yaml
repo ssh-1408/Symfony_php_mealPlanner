@@ -25,9 +25,8 @@ security:
   access_control:
     - { path: ^/admin, roles: ROLE_ADMIN }
     - { path: ^/profile, roles: ROLE_USER }
-    - { path: ^/mealplan, roles: ROLE_USER }
-    - { path: ^/shoppinglist, roles: ROLE_USER }
-    - { path: ^/recipe, roles: ROLE_USER }
+    - { path: ^/mealplan, roles: PUBLIC_ACCESS }
+    - { path: ^/recipe, roles: PUBLIC_ACCESS }
     - { path: ^/register, roles: PUBLIC_ACCESS }
     - { path: ^/login, roles: PUBLIC_ACCESS }
     - { path: ^/, roles: PUBLIC_ACCESS }
